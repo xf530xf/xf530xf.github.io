@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>我的项目 | Index</title>
-  <meta name="description" content="一个简洁的项目索引页，左上角四个按钮跳转到项目的四个部分（单独页面）。">
+  <title>部分四 · 资源/下载</title>
+  <meta name="description" content="资源与下载中心">
   <style>
   :root{
     --bg:#0b0f14; --card:#0f1520; --muted:#9aa4b2; --text:#e6edf3;
@@ -37,8 +37,9 @@
 <body>
   <header>
     <div class="wrap">
-      <div class="brand">📁 我的项目 · Index</div>
-      <nav class="pillbar" aria-label="四大部分（左上角导航）">
+      <div class="brand">📁 我的项目</div>
+      <nav class="pillbar">
+        <a class="pill" href="./index.html">返回首页</a>
         <a class="pill" href="./part-1.html">部分一</a>
         <a class="pill" href="./part-2.html">部分二</a>
         <a class="pill" href="./part-3.html">部分三</a>
@@ -49,35 +50,19 @@
 
   <main>
     <section class="hero">
-      <h1>欢迎来到项目首页</h1>
-      <p class="muted">这是你的入口页。左上角四个按钮将带你进入四个独立页面（不会在此页显示具体内容）。</p>
-      <div class="grid" role="list">
-        <article class="card" role="listitem">
-          <h3><a href="./part-1.html">部分一 · 项目概览</a></h3>
-          <p class="muted">里程碑、成员、目标。</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3><a href="./part-2.html">部分二 · 文档/资料</a></h3>
-          <p class="muted">规范、接口、会议纪要。</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3><a href="./part-3.html">部分三 · 演示/页面</a></h3>
-          <p class="muted">Demo、可视化、交互。</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3><a href="./part-4.html">部分四 · 资源/下载</a></h3>
-          <p class="muted">安装包、数据、发布日志。</p>
-        </article>
-      </div>
+      <h1>部分四 · 资源/下载</h1>
+      <p class="muted">安装包、脚本、数据集、发布日志与许可证。</p>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h3>示例内容</h3>
+      <p>这里是占位文本。把你的真实内容替换进来；或告诉我要从哪份文档里自动填充。</p>
     </section>
   </main>
 
   <footer>
-    <div class="wrap">© <span id="year"></span> 我的项目。可自行修改文案、样式与链接。</div>
+    <div class="wrap">© <span id="year"></span> 我的项目</div>
   </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
