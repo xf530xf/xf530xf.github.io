@@ -3,42 +3,111 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Project | Index</title>
-  <meta name="description" content="A clean project index page with four navigation buttons in the top-left linking to separate sections.">
+  <title>📁 DTLab Project · Index</title>
+  <meta name="description" content="DTLab Project overview and international partnership program.">
   <style>
-  :root{
-    --bg:#0b0f14; --card:#0f1520; --muted:#9aa4b2; --text:#e6edf3;
-    --border:#1c2837; --accent:#7aa2f7; --shadow:0 10px 30px rgba(0,0,0,.35);
-    --radius:16px;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d121a 100%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
-  a{color:inherit;text-decoration:none}
-  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(10px);background:color-mix(in srgb, #0b0f14 82%, transparent);border-bottom:1px solid var(--border)}
-  .wrap{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;gap:16px;align-items:center}
-  .brand{font-weight:700;letter-spacing:.2px}
-  .pillbar{display:flex;gap:8px;margin-left:0}
-  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#0f1520;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);font-size:14px;color:var(--muted)}
-  .pill:hover{border-color:#24415f;color:var(--text)}
-  main{max-width:1100px;margin:0 auto;padding:28px 16px}
-  .hero{border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);background:radial-gradient(60% 120% at 10% -10%, rgba(122,162,247,.18), transparent 40%),radial-gradient(60% 120% at 90% -10%, rgba(166,218,149,.18), transparent 40%)}
-  .hero h1{margin:0 0 8px 0;font-size:28px;line-height:1.2}
-  .muted{color:var(--muted)}
-  .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px}
-  @media(min-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-  .card{border:1px solid var(--border);border-radius:14px;padding:18px;background:linear-gradient(180deg,#0f1520 0%,#0e1420 100%);box-shadow:var(--shadow);transition:transform .2s ease, border-color .2s ease}
-  .card:hover{transform:translateY(-2px);border-color:#284463}
-  .card h3{margin:0 0 8px 0;font-size:18px}
-  .card p{margin:0}
-  footer{border-top:1px solid var(--border);color:var(--muted);padding:22px 0;margin-top:28px}
-</style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #444444;
+      --border: #dddddd;
+      --accent: #004aad;
+      --radius: 14px;
+    }
+    *{box-sizing:border-box;}
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--accent);
+    }
+    .pillbar {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 14px;
+      background: #f9f9f9;
+      color: var(--text);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .pill:hover {
+      background: #eef3ff;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 16px 60px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-top: 0;
+      color: var(--accent);
+    }
+    h2 {
+      margin-top: 32px;
+      font-size: 22px;
+      color: var(--accent);
+    }
+    h3 {
+      margin-top: 20px;
+      font-size: 18px;
+      color: var(--text);
+    }
+    p {
+      margin: 10px 0;
+      color: var(--text);
+    }
+    ul {
+      margin: 10px 0 10px 20px;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      padding: 18px 0;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <div class="brand">📁 My Project · Index</div>
-      <nav class="pillbar" aria-label="Main navigation (top-left)">
+      <div class="brand">📁 DTLab Project · Index</div>
+      <nav class="pillbar">
         <a class="pill" href="./part-1.html">Section 1</a>
         <a class="pill" href="./part-2.html">Section 2</a>
         <a class="pill" href="./part-3.html">Section 3</a>
@@ -48,32 +117,86 @@
   </header>
 
   <main>
-    <section class="hero">
-      <h1>Welcome to the Project Homepage</h1>
-      <p class="muted">This is your entry page. The four buttons in the top-left lead to separate pages — no detailed content is shown here.</p>
-      <div class="grid" role="list">
-        <article class="card" role="listitem">
-          <h3><a href="./part-1.html">Section 1 · Overview</a></h3>
-          <p class="muted">Milestones, team, goals.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3><a href="./part-2.html">Section 2 · Documents</a></h3>
-          <p class="muted">Guidelines, APIs, meeting notes.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3><a href="./part-3.html">Section 3 · Demo / Pages</a></h3>
-          <p class="muted">Interactive demos, visualizations.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3><a href="./part-4.html">Section 4 · Resources / Downloads</a></h3>
-          <p class="muted">Installers, datasets, changelogs.</p>
-        </article>
-      </div>
-    </section>
+    <h1>DTLab UTFORSK Partnership Program</h1>
+    <p><strong>The aim of this project</strong> is to develop novel DTLab-based methods for BLS education outside the classroom and for aquaculture education across geographic locations.</p>
+
+    <p><strong>DTLab UTFORSK partnership program</strong> was launched in order to strengthen international collaboration between Norwegian institutions and partners in China, Brazil and the USA.</p>
+
+    <h2>Project Overview</h2>
+    <p>
+      The <strong>Digital Twin Lab (DTLab) for International Biomedical Laboratory Science (BLS) Education</strong> project is a four-year project funded by the Norwegian Directorate for Higher Education and Skills.
+      The project aims to enhance the quality of higher education in Norway, China and Brazil by developing and implementing a digital twin lab (DTLab) in lab courses, increasing student engagement in aquaculture and biomedical subjects, and strengthening the connection between theory and practice.
+    </p>
+    <p>
+      The project is hosted by the <strong>Norwegian University of Science and Technology (NTNU)</strong> and partnered with <strong>Nankai University (Tianjin, China)</strong>, <strong>Federal University of Paraná (Paraná, Brazil)</strong>, and the <strong>University of New Hampshire (Durham, USA)</strong>.
+    </p>
+
+    <h2>Highlights</h2>
+    <ul>
+      <li>Promote mobility of students and university staff to expand networks and enhance study quality.</li>
+      <li>Establish a common DTLab-based learning platform as a sustainable model for BLS education.</li>
+      <li>Increase students' motivation and competence through designing, developing, using, and evaluating DTLab systems across multiple learning programs, including clinical lab practice.</li>
+      <li>Integrate education, research, and innovation by developing DTLab-based learning approaches.</li>
+      <li>Strengthen links with future careers by connecting biomedical laboratory science (BLS) education with international clinical practice.</li>
+      <li>Follow-up and disseminate research results through publications, conferences, and seminars on DTLab’s educational impact.</li>
+    </ul>
+
+    <p><em>For the Chinese version of this page, please refer to Nankai University’s website.</em></p>
+
+    <h2>Steering Committee</h2>
+    <ul>
+      <li>Project Leader</li>
+      <li>Daily Manager</li>
+      <li>Brazil – Project Coordinator in Brazil</li>
+    </ul>
+
+    <h2>Partners</h2>
+    <ul>
+      <li>NTNU - Department of Biological Sciences Ålesund (IBA)</li>
+      <li>NTNU - Department of Biomedical Laboratory Science (IBF)</li>
+      <li>Nankai University, China</li>
+      <li>Federal University of São Paulo, Brazil</li>
+      <li>University of New Hampshire, USA</li>
+      <li><strong>Norwegian University of Science and Technology (NTNU)</strong> - Lead partner organization</li>
+    </ul>
+
+    <p>
+      The Department of Biological Sciences (IBA) and the Department of Biomedical Laboratory Science (IBF) focus on pedagogical teaching methods, student-active learning, and e-learning. Efforts are being made to simulate and digitize laboratories. IBA has used a virtual lab for BLS students and recently developed "Flipped Lab Room in the subject BL221412" and "Norwegian-Brazilian Partnership Program on Sustainable Aquaculture Systems."
+    </p>
+    <p>
+      The Department of Ocean Operations and Civil Engineering (IHB) at NTNU, as a leading actor in Norway, focuses on digitalization, ship intelligence, and human interaction in demanding operations such as the SFI MOVE project, Digital Ocean Space Center project, and KPN Digital Twinship.
+    </p>
+
+    <h3>Departments</h3>
+    <ul>
+      <li>Department of Biological Sciences Ålesund</li>
+      <li>Department of Biomedical Laboratory Science</li>
+      <li>Department of Ocean Operations and Civil Engineering</li>
+      <li>Department of School of Medicine, Nankai University (Tianjin, China)</li>
+    </ul>
+
+    <p>
+      The School of Medicine at Nankai University follows a “Student-centered medical education” strategy and has introduced new teaching forms. The Basic Medical Experimental Teaching Demonstration Center established a virtual simulation platform for microbiology and anatomy education.
+    </p>
+
+    <h3>Federal University of Paraná (Paraná, Brazil)</h3>
+    <p>
+      The Federal University of Paraná (UFPR) plays an active role in socio-economic development through education and community engagement. UFPR will host exchange students from Norway’s aquaculture program.
+    </p>
+
+    <ul>
+      <li>Department of Animal Physiology</li>
+      <li>Department of Aquaculture</li>
+    </ul>
+
+    <h3>School of Marine Science and Ocean Engineering, University of New Hampshire (Durham, USA)</h3>
+    <p>
+      The School of Marine Science and Ocean Engineering is UNH’s first interdisciplinary school, addressing complex ocean and coastal challenges through integrated education and research. It serves as a hub for marine science and ocean engineering teaching and research across the university.
+    </p>
   </main>
 
   <footer>
-    <div class="wrap">© <span id="year"></span> My Project. You can freely modify text, style, and links.</div>
+    © <span id="year"></span> DTLab Project – All rights reserved.
   </footer>
 
   <script>
