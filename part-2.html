@@ -7,37 +7,120 @@
   <meta name="description" content="规范与资料集合">
   <style>
   :root{
-    --bg:#0b0f14; --card:#0f1520; --muted:#9aa4b2; --text:#e6edf3;
-    --border:#1c2837; --accent:#7aa2f7; --shadow:0 10px 30px rgba(0,0,0,.35);
+    --bg:#ffffff;
+    --card:#ffffff;
+    --muted:#5f6b7a;
+    --text:#111111;
+    --border:#e5e7eb;
+    --accent:#2563eb;
+    --shadow:0 8px 24px rgba(0,0,0,.08);
     --radius:16px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d121a 100%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
-  a{color:inherit;text-decoration:none}
-  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(10px);background:color-mix(in srgb, #0b0f14 82%, transparent);border-bottom:1px solid var(--border)}
-  .wrap{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;gap:16px;align-items:center}
+  body{
+    margin:0;
+    background:#ffffff;
+    color:var(--text);
+    font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:#ffffff;
+    border-bottom:1px solid var(--border)
+  }
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:14px 16px;
+    display:flex;
+    gap:16px;
+    align-items:center
+  }
   .brand{font-weight:700;letter-spacing:.2px}
-  .pillbar{display:flex;gap:8px;margin-left:0}
-  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#0f1520;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);font-size:14px;color:var(--muted)}
-  .pill:hover{border-color:#24415f;color:var(--text)}
-  main{max-width:1100px;margin:0 auto;padding:28px 16px}
-  .hero{border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);background:radial-gradient(60% 120% at 10% -10%, rgba(122,162,247,.18), transparent 40%),radial-gradient(60% 120% at 90% -10%, rgba(166,218,149,.18), transparent 40%)}
-  .hero h1{margin:0 0 8px 0;font-size:28px;line-height:1.2}
+
+  .pillbar{display:flex;gap:8px}
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    background:#ffffff;
+    font-size:14px;
+    color:#374151
+  }
+  .pill:hover{
+    border-color:var(--accent);
+    color:var(--accent)
+  }
+
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:28px 16px
+  }
+
+  .hero{
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+    box-shadow:var(--shadow);
+    background:#f9fafb
+  }
+  .hero h1{
+    margin:0 0 8px 0;
+    font-size:28px;
+    line-height:1.2
+  }
   .muted{color:var(--muted)}
-  .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px}
-  @media(min-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-  .card{border:1px solid var(--border);border-radius:14px;padding:18px;background:linear-gradient(180deg,#0f1520 0%,#0e1420 100%);box-shadow:var(--shadow);transition:transform .2s ease, border-color .2s ease}
-  .card:hover{transform:translateY(-2px);border-color:#284463}
-  .card h3{margin:0 0 8px 0;font-size:18px}
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:18px
+  }
+  @media(min-width:760px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+  }
+
+  .card{
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px;
+    background:#ffffff;
+    box-shadow:var(--shadow);
+    transition:transform .2s ease, border-color .2s ease
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    border-color:var(--accent)
+  }
+  .card h3{
+    margin:0 0 8px 0;
+    font-size:18px
+  }
   .card p{margin:0}
-  footer{border-top:1px solid var(--border);color:var(--muted);padding:22px 0;margin-top:28px}
+
+  footer{
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    padding:22px 0;
+    margin-top:28px
+  }
 </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <div class="brand">📁 My Project</div>
+      <div class="brand">📁 DTLab Project</div>
       <nav class="pillbar">
         <a class="pill" href="./index.html">Back to Index</a>
         <a class="pill" href="./part-1.html">Section 1</a>
@@ -63,6 +146,8 @@
   <footer>
     <div class="wrap">© <span id="year"></span> 我的项目</div>
   </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
