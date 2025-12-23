@@ -1,38 +1,79 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>部分四 · 资源/下载</title>
-  <meta name="description" content="资源与下载中心">
+  <title>Section 1 · Project Overview</title>
+  <meta name="description" content="Overview, milestones, and responsibilities for the histological kidney tissue project.">
   <style>
-  :root{
-    --bg:#0b0f14; --card:#0f1520; --muted:#9aa4b2; --text:#e6edf3;
-    --border:#1c2837; --accent:#7aa2f7; --shadow:0 10px 30px rgba(0,0,0,.35);
-    --radius:16px;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d121a 100%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
-  a{color:inherit;text-decoration:none}
-  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(10px);background:color-mix(in srgb, #0b0f14 82%, transparent);border-bottom:1px solid var(--border)}
-  .wrap{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;gap:16px;align-items:center}
-  .brand{font-weight:700;letter-spacing:.2px}
-  .pillbar{display:flex;gap:8px;margin-left:0}
-  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#0f1520;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);font-size:14px;color:var(--muted)}
-  .pill:hover{border-color:#24415f;color:var(--text)}
-  main{max-width:1100px;margin:0 auto;padding:28px 16px}
-  .hero{border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);background:radial-gradient(60% 120% at 10% -10%, rgba(122,162,247,.18), transparent 40%),radial-gradient(60% 120% at 90% -10%, rgba(166,218,149,.18), transparent 40%)}
-  .hero h1{margin:0 0 8px 0;font-size:28px;line-height:1.2}
-  .muted{color:var(--muted)}
-  .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px}
-  @media(min-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-  .card{border:1px solid var(--border);border-radius:14px;padding:18px;background:linear-gradient(180deg,#0f1520 0%,#0e1420 100%);box-shadow:var(--shadow);transition:transform .2s ease, border-color .2s ease}
-  .card:hover{transform:translateY(-2px);border-color:#284463}
-  .card h3{margin:0 0 8px 0;font-size:18px}
-  .card p{margin:0}
-  footer{border-top:1px solid var(--border);color:var(--muted);padding:22px 0;margin-top:28px}
-</style>
+    :root {
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#444444;
+      --border:#dddddd;
+      --accent:#004aad;
+      --radius:14px;
+    }
+    *{box-sizing:border-box;}
+    body {
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
+    }
+    a{color:var(--accent);text-decoration:none}
+    header {
+      position:sticky;top:0;z-index:50;
+      background:var(--bg);
+      border-bottom:1px solid var(--border);
+    }
+    .wrap {
+      max-width:1100px;
+      margin:0 auto;
+      padding:14px 16px;
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
+    .brand {font-weight:700;font-size:18px;color:var(--accent);}
+    .pillbar {display:flex;gap:10px;margin-left:auto;}
+    .pill {
+      display:inline-flex;align-items:center;padding:8px 14px;
+      border:1px solid var(--border);border-radius:999px;
+      font-size:14px;background:#f9f9f9;color:var(--text);
+      transition:background .2s,border-color .2s;
+    }
+    .pill:hover{background:#eef3ff;border-color:var(--accent);color:var(--accent);}
+    main{max-width:1100px;margin:0 auto;padding:30px 16px 60px;}
+    h1{font-size:28px;margin-top:0;color:var(--accent);}
+    h2{margin-top:28px;font-size:22px;color:var(--accent);}
+    p{margin:10px 0;}
+    footer {
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      text-align:center;
+      padding:18px 0;
+      font-size:14px;
+      margin-top:40px;
+    }
+    section.content-block {
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:24px 20px;
+      margin-top:22px;
+    }
+    .image-block {
+      text-align:center;
+      margin-top:14px;
+    }
+    .image-block img {
+      max-width:100%;
+      height:auto;
+      border-radius:var(--radius);
+      box-shadow:0 4px 14px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -48,22 +89,78 @@
     </div>
   </header>
 
-  
   <main>
-    <section class="hero">
-      <h1>部分四 · 资源/下载</h1>
-      <p class="muted">安装包、脚本、数据集、发布日志与许可证。</p>
+    <h1>Section 1 · Project Overview</h1>
+    <p style="color:var(--muted)">Treatment and workflow with histological kidney tissue affected by nephrocalcinosis.</p>
+
+    <section class="content-block">
+      <h2>Treatment and Work with Histological Kidney Tissue Affected by Nephrocalcinosis</h2>
+      <p>The project documents a complete workflow for handling kidney tissue influenced by nephrocalcinosis — from fixation to microscopic assessment — focusing on preserving tissue integrity and diagnostic value throughout processing.</p>
     </section>
 
-    <section class="card" style="margin-top:18px">
-      <h3>示例内容</h3>
-      <p>这里是占位文本。把你的真实内容替换进来；或告诉我要从哪份文档里自动填充。</p>
+    <section class="content-block">
+      <h2>Fixation</h2>
+      <p>Tissue that is extracted from an organism must be immediately fixed to prevent damage caused by internal and external factors, such as the onset of putrefaction. Shown here is how the tissue was delivered, fully fixed, and prepared before macroscopic examination and assessment.</p>
+      <div class="image-block">
+        <img src="image/2.png" alt="Fixation step image">
+      </div>
+    </section>
+
+    <section class="content-block">
+      <h2>Macroscopic Assessment and Trimming</h2>
+      <p>The tissue material is assessed for consistency, color, and size — this evaluation is part of the diagnostic process. The kidney tissue is sliced so that, under microscopy, relevant components can be observed in each section. The slices are oriented and placed in labeled cassettes, with detailed information systematically recorded.</p>
+      <div class="image-block">
+        <img src="image/3.png" alt="Macroscopic assessment image">
+      </div>
+    </section>
+
+    <section class="content-block">
+      <h2>Feeding (Tissue Processing)</h2>
+      <p>The tissue was processed using the <strong>SPIN TISSUE PROCESSOR STP10</strong>. This step prepares it for paraffin embedding. For successful embedding, tissue must become permeable to paraffin — achieved through formalin fixation, dehydration, clearing in xylene, and final paraffin impregnation.</p>
+      <div class="image-block">
+        <img src="image/4.png" alt="Feeding process image">
+      </div>
+    </section>
+
+    <section class="content-block">
+      <h2>Paraffin Embedding</h2>
+      <p>Once permeable, tissue slices can be embedded in paraffin using the <strong>MEDITE TBS88 – Paraffin Embedding System</strong>. After the paraffin in the chamber has melted, a mold is selected based on tissue size, a small amount of paraffin is poured, and the tissue is properly oriented. The mold is then moved to a cold plate to accelerate solidification while pressing the tissue to ensure the surface adheres. The labeled cassette with ID is attached, and the entire mold is placed on a larger cold plate until fully solidified.</p>
+      <div class="image-block">
+        <img src="image/5.png" alt="Paraffin embedding image">
+      </div>
+    </section>
+
+    <section class="content-block">
+      <h2>Sectioning</h2>
+      <p>The finished paraffin blocks are trimmed to ensure that each section includes the full tissue surface. Trimming requirements vary per block. Various microtomes — manual or with water slides — are used. Precision and patience are essential for clean, even sections. For disease-affected samples, extra care is taken to avoid tearing and ensure complete component preservation. The sections are floated on a water bath, mounted on slides, and placed on a warming plate for adhesion.</p>
+      <div class="image-block">
+        <img src="image/6.png" alt="Sectioning process image">
+      </div>
+    </section>
+
+    <section class="content-block">
+      <h2>Staining</h2>
+      <p>To visualize tissue components under the microscope, an appropriate staining method is chosen. <strong>HE/HES</strong> is a common stain that differentiates layers and structures, providing clear contrast between various cell and tissue types.</p>
+      <div class="image-block">
+        <img src="image/7.png" alt="Staining process image">
+      </div>
+    </section>
+
+    <section class="content-block">
+      <h2>Microscopic Assessment</h2>
+      <p>During microscopic examination, normal histology is identified — including tissue architecture, cell types, and characteristic structures. Abnormal findings such as tissue damage, inflammatory or blood cells, and necrosis are also evaluated, as these indicate pathological changes absent in healthy tissue.</p>
+      <div class="image-block">
+        <img src="image/8.png" alt="Microscopic assessment image">
+      </div>
     </section>
   </main>
 
   <footer>
-    <div class="wrap">© <span id="year"></span> 我的项目</div>
+    © <span id="year"></span> My Project – All rights reserved.
   </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
