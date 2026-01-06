@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Section 1 · Project Overview</title>
+  <meta name="description" content="Overview, milestones, and responsibilities for the histological kidney tissue project.">
+
+  <style>
+    :root {
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#444444;
+      --border:#dddddd;
+      --accent:#004aad;
+      --radius:14px;
+
+      /* Sidebar tokens (match previous layout) */
+      --sidebar-w: 300px;
+      --sidebar-bg: #1f2328;
+      --sidebar-bg-2: #14171b;
+      --sidebar-text: rgba(255,255,255,0.92);
+      --sidebar-muted: rgba(255,255,255,0.62);
+      --sidebar-active: rgba(255,255,255,0.12);
+      --sidebar-hover: rgba(255,255,255,0.08);
+      --sidebar-divider: rgba(255,255,255,0.10);
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* ===== Layout: sidebar + content ===== */
+    .layout{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar{
+      width:var(--sidebar-w);
+      background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg-2));
+      color:var(--sidebar-text);
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow:auto;
+      border-right:1px solid rgba(0,0,0,0.15);
+    }
+    .sidebar-header{
+      padding:22px 20px 14px;
+      border-bottom:1px solid var(--sidebar-divider);
+    }
+    .sidebar-title{
+      font-size:22px;
+      font-weight:750;
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .sidebar-subtitle{
+      margin:6px 0 0 0;
+      color:var(--sidebar-muted);
+      font-size:13px;
+    }
+
+    .side-nav{padding:10px 0;}
+    .side-nav a{
+      display:flex;
+      align-items:center;
+      gap:12px;
+
+      padding:14px 18px;
+      color:var(--sidebar-muted);
+      text-decoration:none;
+
+      border-top:1px solid rgba(255,255,255,0.03);
+      border-bottom:1px solid rgba(0,0,0,0.12);
+      transition:background .15s,color .15s;
+    }
+    .side-nav a:hover{
+      background:var(--sidebar-hover);
+      color:var(--sidebar-text);
+      text-decoration:none;
+    }
+    .side-nav a.active{
+      background:var(--sidebar-active);
+      color:var(--sidebar-text);
+    }
+    .nav-ico{
+      width:26px;height:26px;
+      display:inline-grid;place-items:center;
+      border-radius:8px;
+      color:var(--sidebar-muted);
+      flex:0 0 26px;
+      font-size:16px;
+    }
+    .side-nav a.active .nav-ico{
+      color:#ff6b8a;
+    }
+    .nav-text{
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+
+    /* ===== Content ===== */
+    .content{
+      flex:1;
+      background:var(--bg);
+    }
+    main{max-width:1100px;margin:0 auto;padding:30px 16px 60px;}
+    h1{font-size:28px;margin-top:0;color:var(--accent);}
+    h2{margin-top:28px;font-size:22px;color:var(--accent);}
+    p{margin:10px 0;}
+
+    section.content-block{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:24px 20px;
+      margin-top:22px;
+    }
+
+    .image-block{
+      text-align:center;
+      margin-top:14px;
+    }
+    .image-block img{
+      max-width:100%;
+      height:auto;
+      border-radius:var(--radius);
+      box-shadow:0 4px 14px rgba(0,0,0,0.1);
+    }
+
+    /* keep your rotation helpers */
+    .rotate-90{
+      transform:rotate(270deg);
+      transform-origin:center;
+    }
+    .rotate--90{
+      transform:rotate(-90deg);
+      transform-origin:center;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      text-align:center;
+      padding:18px 0;
+      font-size:14px;
+      margin-top:40px;
+    }
+
+    /* ===== Responsive: collapse sidebar to top ===== */
+    @media (max-width: 900px){
+      .layout{flex-direction:column;}
+      .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+      }
+      .side-nav{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+      }
+      .side-nav a{
+        border:none;
+        border-top:1px solid var(--sidebar-divider);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">📁 My Project</h1>
+        <p class="sidebar-subtitle">Histology workflow · Nephrocalcinosis</p>
+      </div>
+
+      <nav class="side-nav">
+        <a href="./index.html">
+          <span class="nav-ico">↩️</span>
+          <span class="nav-text">Back to Index</span>
+        </a>
+        <a href="./part-1.html" class="active">
+          <span class="nav-ico">🏠</span>
+          <span class="nav-text">Section 1</span>
+        </a>
+        <a href="./part-2.html">
+          <span class="nav-ico">✍️</span>
+          <span class="nav-text">Section 2</span>
+        </a>
+        <a href="./part-3.html">
+          <span class="nav-ico">📄</span>
+          <span class="nav-text">Section 3</span>
+        </a>
+        <a href="./part-4.html">
+          <span class="nav-ico">👤</span>
+          <span class="nav-text">Section 4</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <div class="content">
+      <main>
+        <h1>Section 1 · Project Overview</h1>
+        <p style="color:var(--muted)">Treatment and workflow with histological kidney tissue affected by nephrocalcinosis.</p>
+
+        <section class="content-block">
+          <h2>Treatment and Work with Histological Kidney Tissue Affected by Nephrocalcinosis</h2>
+          <p>
+            The project documents a complete workflow for handling kidney tissue influenced by nephrocalcinosis — from fixation to microscopic assessment — focusing on preserving tissue integrity and diagnostic value throughout processing.
+          </p>
+        </section>
+
+        <section class="content-block">
+          <h2>Fixation</h2>
+          <p>
+            Tissue that is extracted from an organism must be immediately fixed to prevent damage caused by internal and external factors, such as the onset of putrefaction. Shown here is how the tissue was delivered, fully fixed, and prepared before macroscopic examination and assessment.
+          </p>
+          <div class="image-block">
+            <img src="image/2.png" alt="Fixation step image" class="rotate-90">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Macroscopic Assessment and Trimming</h2>
+          <p>
+            The tissue material is assessed for consistency, color, and size — this evaluation is part of the diagnostic process. The kidney tissue is sliced so that, under microscopy, relevant components can be observed in each section. The slices are oriented and placed in labeled cassettes, with detailed information systematically recorded.
+          </p>
+          <div class="image-block">
+            <img src="image/3.png" alt="Macroscopic assessment image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Feeding (Tissue Processing)</h2>
+          <p>
+            The tissue was processed using the <strong>SPIN TISSUE PROCESSOR STP10</strong>. This step prepares it for paraffin embedding. For successful embedding, tissue must become permeable to paraffin — achieved through formalin fixation, dehydration, clearing in xylene, and final paraffin impregnation.
+          </p>
+          <div class="image-block">
+            <img src="image/4.png" alt="Feeding process image" class="rotate--90">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Paraffin Embedding</h2>
+          <p>
+            Once permeable, tissue slices can be embedded in paraffin using the <strong>MEDITE TBS88 – Paraffin Embedding System</strong>. After the paraffin in the chamber has melted, a mold is selected based on tissue size, a small amount of paraffin is poured, and the tissue is properly oriented. The mold is then moved to a cold plate to accelerate solidification while pressing the tissue to ensure the surface adheres. The labeled cassette with ID is attached, and the entire mold is placed on a larger cold plate until fully solidified.
+          </p>
+          <div class="image-block">
+            <img src="image/5.png" alt="Paraffin embedding image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Sectioning</h2>
+          <p>
+            The finished paraffin blocks are trimmed to ensure that each section includes the full tissue surface. Trimming requirements vary per block. Various microtomes — manual or with water slides — are used. Precision and patience are essential for clean, even sections. For disease-affected samples, extra care is taken to avoid tearing and ensure complete component preservation. The sections are floated on a water bath, mounted on slides, and placed on a warming plate for adhesion.
+          </p>
+          <div class="image-block">
+            <img src="image/6.png" alt="Sectioning process image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Staining</h2>
+          <p>
+            To visualize tissue components under the microscope, an appropriate staining method is chosen. <strong>HE/HES</strong> is a common stain that differentiates layers and structures, providing clear contrast between various cell and tissue types.
+          </p>
+          <div class="image-block">
+            <img src="image/7.png" alt="Staining process image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Microscopic Assessment</h2>
+          <p>
+            During microscopic examination, normal histology is identified — including tissue architecture, cell types, and characteristic structures. Abnormal findings such as tissue damage, inflammatory or blood cells, and necrosis are also evaluated, as these indicate pathological changes absent in healthy tissue.
+          </p>
+          <div class="image-block">
+            <img src="image/8.png" alt="Microscopic assessment image">
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        © <span id="year"></span> My Project – All rights reserved.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
