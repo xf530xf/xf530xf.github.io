@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>📁 DTLab Project</title>
   <meta name="description" content="DTLab Project overview and international partnership program.">
+
   <style>
     :root {
       --bg: #ffffff;
@@ -13,7 +14,18 @@
       --border: #dddddd;
       --accent: #004aad;
       --radius: 14px;
+
+      /* Sidebar tokens */
+      --sidebar-w: 300px;
+      --sidebar-bg: #1f2328;
+      --sidebar-bg-2: #14171b;
+      --sidebar-text: rgba(255,255,255,0.92);
+      --sidebar-muted: rgba(255,255,255,0.62);
+      --sidebar-active: rgba(255,255,255,0.12);
+      --sidebar-hover: rgba(255,255,255,0.08);
+      --sidebar-divider: rgba(255,255,255,0.10);
     }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -22,53 +34,95 @@
       color: var(--text);
       line-height: 1.6;
     }
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+    a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    header {
+    /* ===== Layout: sidebar + content ===== */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ===== Sidebar (left) ===== */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: linear-gradient(180deg, var(--sidebar-bg), var(--sidebar-bg-2));
+      color: var(--sidebar-text);
       position: sticky;
       top: 0;
-      z-index: 10;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      height: 100vh;
+      overflow: auto;
+      border-right: 1px solid rgba(0,0,0,0.15);
     }
-    .wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 14px 16px;
+
+    .sidebar-header {
+      padding: 22px 20px 14px;
+      border-bottom: 1px solid var(--sidebar-divider);
+    }
+    .sidebar-title {
+      font-size: 22px;
+      font-weight: 750;
+      margin: 0;
+      letter-spacing: 0.2px;
+    }
+    .sidebar-subtitle {
+      margin: 6px 0 0 0;
+      color: var(--sidebar-muted);
+      font-size: 13px;
+    }
+
+    .side-nav {
+      padding: 10px 0;
+    }
+    .side-nav a {
       display: flex;
       align-items: center;
-      gap: 16px;
-    }
-    .brand {
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--accent);
-    }
-    .pillbar {
-      display: flex;
-      gap: 10px;
-      margin-left: auto;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 14px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 14px;
-      background: #f9f9f9;
-      color: var(--text);
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .pill:hover {
-      background: #eef3ff;
-      border-color: var(--accent);
-      color: var(--accent);
+      gap: 12px;
+
+      padding: 14px 18px;
+      color: var(--sidebar-muted);
       text-decoration: none;
+
+      border-top: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      transition: background 0.15s, color 0.15s;
+    }
+    .side-nav a:hover {
+      background: var(--sidebar-hover);
+      color: var(--sidebar-text);
+      text-decoration: none;
+    }
+
+    /* active state like your screenshot */
+    .side-nav a.active {
+      background: var(--sidebar-active);
+      color: var(--sidebar-text);
+    }
+
+    /* simple icon holder */
+    .nav-ico {
+      width: 26px;
+      height: 26px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--sidebar-muted);
+      flex: 0 0 26px;
+      font-size: 16px;
+    }
+    .side-nav a.active .nav-ico {
+      color: #ff6b8a; /* similar pink accent in your screenshot */
+    }
+
+    .nav-text {
+      font-size: 15px;
+      letter-spacing: 0.2px;
+    }
+
+    /* ===== Content (right) ===== */
+    .content {
+      flex: 1;
+      background: var(--bg);
     }
 
     main {
@@ -76,21 +130,10 @@
       margin: 0 auto;
       padding: 30px 16px 60px;
     }
-    h1 {
-      font-size: 28px;
-      margin-top: 0;
-      color: var(--accent);
-    }
-    h2 {
-      margin-top: 32px;
-      font-size: 22px;
-      color: var(--accent);
-    }
-    h3 {
-      margin-top: 20px;
-      font-size: 18px;
-      color: var(--text);
-    }
+
+    h1 { font-size: 28px; margin-top: 0; color: var(--accent); }
+    h2 { margin-top: 32px; font-size: 22px; color: var(--accent); }
+    h3 { margin-top: 20px; font-size: 18px; color: var(--text); }
     p { margin: 10px 0; color: var(--text); }
     ul { margin: 10px 0 10px 20px; }
 
@@ -161,141 +204,175 @@
       padding: 18px 0;
       font-size: 14px;
     }
+
+    /* ===== Responsive: collapse sidebar to top ===== */
+    @media (max-width: 900px) {
+      .layout { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .side-nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .side-nav a { border: none; border-top: 1px solid var(--sidebar-divider); }
+    }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">📁 DTLab Project</div>
-      <nav class="pillbar">
-        <a class="pill" href="./part-1.html">Section 1</a>
-        <a class="pill" href="./part-2.html">Section 2</a>
-        <a class="pill" href="./part-3.html">Section 3</a>
-        <a class="pill" href="./part-4.html">Section 4</a>
+  <div class="layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">Your awesome title</h1>
+        <p class="sidebar-subtitle">Your awesome subtitle</p>
+      </div>
+
+      <nav class="side-nav">
+        <!-- 你可以把 active 放在当前页对应的链接上 -->
+        <a href="./part-1.html" class="active">
+          <span class="nav-ico">🏠</span>
+          <span class="nav-text">Section 1</span>
+        </a>
+        <a href="./part-2.html">
+          <span class="nav-ico">✍️</span>
+          <span class="nav-text">Section 2</span>
+        </a>
+        <a href="./part-3.html">
+          <span class="nav-ico">📄</span>
+          <span class="nav-text">Section 3</span>
+        </a>
+        <a href="./part-4.html">
+          <span class="nav-ico">👤</span>
+          <span class="nav-text">Section 4</span>
+        </a>
       </nav>
-    </div>
-  </header>
+    </aside>
 
-  <main>
-    <h1>DTLab UTFORSK Partnership Program</h1>
-    <p><strong>The aim of this project</strong> is to develop novel DTLab-based methods for BLS education outside the classroom and for aquaculture education across geographic locations.</p>
+    <!-- RIGHT CONTENT -->
+    <div class="content">
+      <main>
+        <h1>DTLab UTFORSK Partnership Program</h1>
+        <p><strong>The aim of this project</strong> is to develop novel DTLab-based methods for BLS education outside the classroom and for aquaculture education across geographic locations.</p>
 
-    <p><strong>DTLab UTFORSK partnership program</strong> was launched in order to strengthen international collaboration between Norwegian institutions and partners in China, Brazil and the USA.</p>
+        <p><strong>DTLab UTFORSK partnership program</strong> was launched in order to strengthen international collaboration between Norwegian institutions and partners in China, Brazil and the USA.</p>
 
-    <div class="image-block">
-      <img src="image/1.jpg" alt="DTLab Project Overview Image">
-    </div>
+        <div class="image-block">
+          <img src="image/1.jpg" alt="DTLab Project Overview Image">
+        </div>
 
-    <h2>Project Overview</h2>
-    <p>
-      The <strong>Digital Twin Lab (DTLab) for International Biomedical Laboratory Science (BLS) Education</strong> project is a four-year project funded by the Norwegian Directorate for Higher Education and Skills.
-      The project aims to enhance the quality of higher education in Norway, China and Brazil by developing and implementing a digital twin lab (DTLab) in lab courses, increasing student engagement in aquaculture and biomedical subjects, and strengthening the connection between theory and practice.
-    </p>
-    <p>
-      The project is hosted by the <strong>Norwegian University of Science and Technology (NTNU)</strong> and partnered with <strong>Nankai University (Tianjin, China)</strong>, <strong>Federal University of Paraná (Paraná, Brazil)</strong>, and the <strong>University of New Hampshire (Durham, USA)</strong>.
-    </p>
+        <h2>Project Overview</h2>
+        <p>
+          The <strong>Digital Twin Lab (DTLab) for International Biomedical Laboratory Science (BLS) Education</strong> project is a four-year project funded by the Norwegian Directorate for Higher Education and Skills.
+          The project aims to enhance the quality of higher education in Norway, China and Brazil by developing and implementing a digital twin lab (DTLab) in lab courses, increasing student engagement in aquaculture and biomedical subjects, and strengthening the connection between theory and practice.
+        </p>
+        <p>
+          The project is hosted by the <strong>Norwegian University of Science and Technology (NTNU)</strong> and partnered with <strong>Nankai University (Tianjin, China)</strong>, <strong>Federal University of Paraná (Paraná, Brazil)</strong>, and the <strong>University of New Hampshire (Durham, USA)</strong>.
+        </p>
 
-    <h2>Highlights</h2>
-    <ul>
-      <li>Promote mobility of students and university staff to expand networks and enhance study quality.</li>
-      <li>Establish a common DTLab-based learning platform as a sustainable model for BLS education.</li>
-      <li>Increase students' motivation and competence through designing, developing, using, and evaluating DTLab systems across multiple learning programs, including clinical lab practice.</li>
-      <li>Integrate education, research, and innovation by developing DTLab-based learning approaches.</li>
-      <li>Strengthen links with future careers by connecting biomedical laboratory science (BLS) education with international clinical practice.</li>
-      <li>Follow-up and disseminate research results through publications, conferences, and seminars on DTLab’s educational impact.</li>
-    </ul>
+        <h2>Highlights</h2>
+        <ul>
+          <li>Promote mobility of students and university staff to expand networks and enhance study quality.</li>
+          <li>Establish a common DTLab-based learning platform as a sustainable model for BLS education.</li>
+          <li>Increase students' motivation and competence through designing, developing, using, and evaluating DTLab systems across multiple learning programs, including clinical lab practice.</li>
+          <li>Integrate education, research, and innovation by developing DTLab-based learning approaches.</li>
+          <li>Strengthen links with future careers by connecting biomedical laboratory science (BLS) education with international clinical practice.</li>
+          <li>Follow-up and disseminate research results through publications, conferences, and seminars on DTLab’s educational impact.</li>
+        </ul>
 
-    <p><em>For the Chinese version of this page, please refer to Nankai University’s website.</em></p>
+        <p><em>For the Chinese version of this page, please refer to Nankai University’s website.</em></p>
 
-    <h2>Steering Committee</h2>
-    <ul>
-      <li>Project Leader</li>
-      <li>Daily Manager</li>
-      <li>Brazil – Project Coordinator in Brazil</li>
-    </ul>
+        <h2>Steering Committee</h2>
+        <ul>
+          <li>Project Leader</li>
+          <li>Daily Manager</li>
+          <li>Brazil – Project Coordinator in Brazil</li>
+        </ul>
 
-    <h2>Partners</h2>
-    <ul>
-      <li>NTNU - Department of Biological Sciences Ålesund (IBA)</li>
-      <li>NTNU - Department of Biomedical Laboratory Science (IBF)</li>
-      <li>Nankai University, China</li>
-      <li>Federal University of São Paulo, Brazil</li>
-      <li>University of New Hampshire, USA</li>
-      <li><strong>Norwegian University of Science and Technology (NTNU)</strong> - Lead partner organization</li>
-    </ul>
+        <h2>Partners</h2>
+        <ul>
+          <li>NTNU - Department of Biological Sciences Ålesund (IBA)</li>
+          <li>NTNU - Department of Biomedical Laboratory Science (IBF)</li>
+          <li>Nankai University, China</li>
+          <li>Federal University of São Paulo, Brazil</li>
+          <li>University of New Hampshire, USA</li>
+          <li><strong>Norwegian University of Science and Technology (NTNU)</strong> - Lead partner organization</li>
+        </ul>
 
-    <p>
-      The Department of Biological Sciences (IBA) and the Department of Biomedical Laboratory Science (IBF) focus on pedagogical teaching methods, student-active learning, and e-learning. Efforts are being made to simulate and digitize laboratories. IBA has used a virtual lab for BLS students and recently developed "Flipped Lab Room in the subject BL221412" and "Norwegian-Brazilian Partnership Program on Sustainable Aquaculture Systems."
-    </p>
-    <p>
-      The Department of Ocean Operations and Civil Engineering (IHB) at NTNU, as a leading actor in Norway, focuses on digitalization, ship intelligence, and human interaction in demanding operations such as the SFI MOVE project, Digital Ocean Space Center project, and KPN Digital Twinship.
-    </p>
+        <p>
+          The Department of Biological Sciences (IBA) and the Department of Biomedical Laboratory Science (IBF) focus on pedagogical teaching methods, student-active learning, and e-learning. Efforts are being made to simulate and digitize laboratories. IBA has used a virtual lab for BLS students and recently developed "Flipped Lab Room in the subject BL221412" and "Norwegian-Brazilian Partnership Program on Sustainable Aquaculture Systems."
+        </p>
+        <p>
+          The Department of Ocean Operations and Civil Engineering (IHB) at NTNU, as a leading actor in Norway, focuses on digitalization, ship intelligence, and human interaction in demanding operations such as the SFI MOVE project, Digital Ocean Space Center project, and KPN Digital Twinship.
+        </p>
 
-    <h3>Departments</h3>
-    <ul>
-      <li>Department of Biological Sciences Ålesund</li>
-      <li>Department of Biomedical Laboratory Science</li>
-      <li>Department of Ocean Operations and Civil Engineering</li>
-      <li>Department of School of Medicine, Nankai University (Tianjin, China)</li>
-    </ul>
+        <h3>Departments</h3>
+        <ul>
+          <li>Department of Biological Sciences Ålesund</li>
+          <li>Department of Biomedical Laboratory Science</li>
+          <li>Department of Ocean Operations and Civil Engineering</li>
+          <li>Department of School of Medicine, Nankai University (Tianjin, China)</li>
+        </ul>
 
-    <p>
-      The School of Medicine at Nankai University follows a “Student-centered medical education” strategy and has introduced new teaching forms. The Basic Medical Experimental Teaching Demonstration Center established a virtual simulation platform for microbiology and anatomy education.
-    </p>
+        <p>
+          The School of Medicine at Nankai University follows a “Student-centered medical education” strategy and has introduced new teaching forms. The Basic Medical Experimental Teaching Demonstration Center established a virtual simulation platform for microbiology and anatomy education.
+        </p>
 
-    <h3>Federal University of Paraná (Paraná, Brazil)</h3>
-    <p>
-      The Federal University of Paraná (UFPR) plays an active role in socio-economic development through education and community engagement. UFPR will host exchange students from Norway’s aquaculture program.
-    </p>
+        <h3>Federal University of Paraná (Paraná, Brazil)</h3>
+        <p>
+          The Federal University of Paraná (UFPR) plays an active role in socio-economic development through education and community engagement. UFPR will host exchange students from Norway’s aquaculture program.
+        </p>
 
-    <ul>
-      <li>Department of Animal Physiology</li>
-      <li>Department of Aquaculture</li>
-    </ul>
+        <ul>
+          <li>Department of Animal Physiology</li>
+          <li>Department of Aquaculture</li>
+        </ul>
 
-    <h3>School of Marine Science and Ocean Engineering, University of New Hampshire (Durham, USA)</h3>
-    <p>
-      The School of Marine Science and Ocean Engineering is UNH’s first interdisciplinary school, addressing complex ocean and coastal challenges through integrated education and research. It serves as a hub for marine science and ocean engineering teaching and research across the university.
-    </p>
-  </main>
+        <h3>School of Marine Science and Ocean Engineering, University of New Hampshire (Durham, USA)</h3>
+        <p>
+          The School of Marine Science and Ocean Engineering is UNH’s first interdisciplinary school, addressing complex ocean and coastal challenges through integrated education and research. It serves as a hub for marine science and ocean engineering teaching and research across the university.
+        </p>
+      </main>
 
-  <!-- ===== NTNU-like Contact section (added before footer) ===== -->
-  <section class="footer-contact">
-    <h2>Contact</h2>
+      <section class="footer-contact">
+        <h2>Contact</h2>
+        <div class="contact-list">
+          <div class="contact-item">
+            <img src="image/yanran-cao.jpg" alt="Yanran Cao">
+            <div>
+              <div class="contact-name">Yanran Cao</div>
+              <div class="contact-role">Associate Professor</div>
+              <div class="contact-meta">
+                +47 7016 1261 &nbsp;·&nbsp;
+                <a href="mailto:yanran.cao@ntnu.no">yanran.cao@ntnu.no</a><br>
+                Department of Biological Sciences Ålesund
+              </div>
+            </div>
+          </div>
 
-    <div class="contact-list">
-      <div class="contact-item">
-        <img src="image/yanran-cao.jpg" alt="Yanran Cao">
-        <div>
-          <div class="contact-name">Yanran Cao</div>
-          <div class="contact-role">Associate Professor</div>
-          <div class="contact-meta">
-            +47 7016 1261 &nbsp;·&nbsp;
-            <a href="mailto:yanran.cao@ntnu.no">yanran.cao@ntnu.no</a><br>
-            Department of Biological Sciences Ålesund
+          <div class="contact-item">
+            <img src="image/ann-kristin.jpg" alt="Ann-Kristin Tveten">
+            <div>
+              <div class="contact-name">Ann-Kristin Tveten</div>
+              <div class="contact-role">Associate Professor</div>
+              <div class="contact-meta">
+                +47 7016 1516 &nbsp;·&nbsp;
+                <a href="mailto:ann-kristin.tveten@ntnu.no">ann-kristin.tveten@ntnu.no</a><br>
+                Department of Biological Sciences Ålesund
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="contact-item">
-        <img src="image/ann-kristin.jpg" alt="Ann-Kristin Tveten">
-        <div>
-          <div class="contact-name">Ann-Kristin Tveten</div>
-          <div class="contact-role">Associate Professor</div>
-          <div class="contact-meta">
-            +47 7016 1516 &nbsp;·&nbsp;
-            <a href="mailto:ann-kristin.tveten@ntnu.no">ann-kristin.tveten@ntnu.no</a><br>
-            Department of Biological Sciences Ålesund
-          </div>
-        </div>
-      </div>
+      <footer>
+        © <span id="year"></span> DTLab Project – All rights reserved.
+      </footer>
     </div>
-  </section>
-
-  <footer>
-    © <span id="year"></span> DTLab Project – All rights reserved.
-  </footer>
+  </div>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
