@@ -203,7 +203,10 @@
     }
     
     .image-block{
-      flex: 1;             /* 两个块各占一半 */
+      flex: 1;
+      aspect-ratio: 16 / 9;   /* 两张图统一比例，可改 4/3、1/1 等 */
+      overflow: hidden;
+      border-radius: 10px;    /* 可选 */
     }
     
     .image-block img{
