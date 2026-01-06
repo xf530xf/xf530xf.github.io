@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Section 1 · Project Overview</title>
-  <meta name="description" content="Overview, milestones, and responsibilities for the histological kidney tissue project.">
+  <title>Section 2 · Hemostasis Training Simulation</title>
+  <meta name="description" content="Unity-based experimental simulation platform for hemostasis training.">
+
   <style>
     :root {
       --bg:#ffffff;
@@ -13,42 +14,130 @@
       --border:#dddddd;
       --accent:#004aad;
       --radius:14px;
+
+      /* Sidebar tokens (match unified layout) */
+      --sidebar-w: 300px;
+      --sidebar-bg: #1f2328;
+      --sidebar-bg-2: #14171b;
+      --sidebar-text: rgba(255,255,255,0.92);
+      --sidebar-muted: rgba(255,255,255,0.62);
+      --sidebar-active: rgba(255,255,255,0.12);
+      --sidebar-hover: rgba(255,255,255,0.08);
+      --sidebar-divider: rgba(255,255,255,0.10);
     }
+
     *{box-sizing:border-box;}
-    body {
+    body{
       margin:0;
       background:var(--bg);
       color:var(--text);
       font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
     }
     a{color:var(--accent);text-decoration:none}
-    header {
-      position:sticky;top:0;z-index:50;
-      background:var(--bg);
-      border-bottom:1px solid var(--border);
-    }
-    .wrap {
-      max-width:1100px;
-      margin:0 auto;
-      padding:14px 16px;
+    a:hover{text-decoration:underline}
+
+    /* ===== Layout: sidebar + content ===== */
+    .layout{
       display:flex;
-      gap:16px;
+      min-height:100vh;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar{
+      width:var(--sidebar-w);
+      background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg-2));
+      color:var(--sidebar-text);
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow:auto;
+      border-right:1px solid rgba(0,0,0,0.15);
+    }
+    .sidebar-header{
+      padding:22px 20px 14px;
+      border-bottom:1px solid var(--sidebar-divider);
+    }
+    .sidebar-title{
+      font-size:22px;
+      font-weight:750;
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .sidebar-subtitle{
+      margin:6px 0 0 0;
+      color:var(--sidebar-muted);
+      font-size:13px;
+    }
+
+    .side-nav{padding:10px 0;}
+    .side-nav a{
+      display:flex;
       align-items:center;
+      gap:12px;
+
+      padding:14px 18px;
+      color:var(--sidebar-muted);
+      text-decoration:none;
+
+      border-top:1px solid rgba(255,255,255,0.03);
+      border-bottom:1px solid rgba(0,0,0,0.12);
+      transition:background .15s,color .15s;
     }
-    .brand {font-weight:700;font-size:18px;color:var(--accent);}
-    .pillbar {display:flex;gap:10px;margin-left:auto;}
-    .pill {
-      display:inline-flex;align-items:center;padding:8px 14px;
-      border:1px solid var(--border);border-radius:999px;
-      font-size:14px;background:#f9f9f9;color:var(--text);
-      transition:background .2s,border-color .2s;
+    .side-nav a:hover{
+      background:var(--sidebar-hover);
+      color:var(--sidebar-text);
+      text-decoration:none;
     }
-    .pill:hover{background:#eef3ff;border-color:var(--accent);color:var(--accent);}
+    .side-nav a.active{
+      background:var(--sidebar-active);
+      color:var(--sidebar-text);
+    }
+    .nav-ico{
+      width:26px;height:26px;
+      display:inline-grid;place-items:center;
+      border-radius:8px;
+      color:var(--sidebar-muted);
+      flex:0 0 26px;
+      font-size:16px;
+    }
+    .side-nav a.active .nav-ico{
+      color:#ff6b8a;
+    }
+    .nav-text{
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+
+    /* ===== Content ===== */
+    .content{
+      flex:1;
+      background:var(--bg);
+    }
     main{max-width:1100px;margin:0 auto;padding:30px 16px 60px;}
     h1{font-size:28px;margin-top:0;color:var(--accent);}
     h2{margin-top:28px;font-size:22px;color:var(--accent);}
     p{margin:10px 0;}
-    footer {
+
+    section.content-block{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:24px 20px;
+      margin-top:22px;
+    }
+
+    .image-block{
+      text-align:center;
+      margin-top:14px;
+    }
+    .image-block img{
+      max-width:100%;
+      height:auto;
+      border-radius:var(--radius);
+      box-shadow:0 4px 14px rgba(0,0,0,0.1);
+    }
+
+    footer{
       border-top:1px solid var(--border);
       color:var(--muted);
       text-align:center;
@@ -56,61 +145,93 @@
       font-size:14px;
       margin-top:40px;
     }
-    section.content-block {
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      background:#fff;
-      padding:24px 20px;
-      margin-top:22px;
-    }
-    .image-block {
-      text-align:center;
-      margin-top:14px;
-    }
-    .image-block img {
-      max-width:100%;
-      height:auto;
-      border-radius:var(--radius);
-      box-shadow:0 4px 14px rgba(0,0,0,0.1);
+
+    /* ===== Responsive: collapse sidebar to top ===== */
+    @media (max-width: 900px){
+      .layout{flex-direction:column;}
+      .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+      }
+      .side-nav{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+      }
+      .side-nav a{
+        border:none;
+        border-top:1px solid var(--sidebar-divider);
+      }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">📁 My Project</div>
-      <nav class="pillbar">
-        <a class="pill" href="./index.html">Back to Index</a>
-        <a class="pill" href="./part-1.html">Section 1</a>
-        <a class="pill" href="./part-2.html">Section 2</a>
-        <a class="pill" href="./part-3.html">Section 3</a>
-        <a class="pill" href="./part-4.html">Section 4</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <h1>Section 2 · Hemostasis Training Simulation</h1>
-    <p style="color:var(--muted)">Unity-based experimental simulation platform</p>
-
-    <section class="content-block">
-      <h2>Treatment and Work with Histological Kidney Tissue Affected by Nephrocalcinosis</h2>
-      <p>The webpage presents an online Unity-based experimental simulation platform hosted on Unity Play, titled Simulation Learning Lab. It is a browser-accessible interactive environment built with the Unity engine and deployed using WebGL technology, allowing users to run a 3D simulation directly without installing any local software. The platform is designed for simulation-driven learning, where users can interact with virtual scenes, objects, and procedural workflows that emulate real-world laboratory or training scenarios. Through mouse and keyboard interactions, users can explore the environment, follow predefined operational steps, and observe system feedback in real time, making it suitable for education, training demonstrations, and experimental prototyping. As a typical Unity Play deployment, the simulation emphasizes accessibility, visual realism, and interactivity, and is particularly well suited for use as a supplementary teaching tool or as a proof-of-concept for virtual labs and simulation-based learning systems.</p>
-    </section>
-
-    <section class="content-block">
-      <h2>Visualization</h2>
-      <p></p>
-      <div class="image-block">
-        <img src="image/Hemostasis.png" alt="Fixation step image">
+  <div class="layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">📁 My Project</h1>
+        <p class="sidebar-subtitle">Simulation Learning Lab</p>
       </div>
-    </section>
 
-  </main>
+      <nav class="side-nav">
+        <a href="./index.html">
+          <span class="nav-ico">↩️</span>
+          <span class="nav-text">Back to Index</span>
+        </a>
+        <a href="./part-1.html">
+          <span class="nav-ico">🏠</span>
+          <span class="nav-text">Section 1</span>
+        </a>
+        <a href="./part-2.html" class="active">
+          <span class="nav-ico">🩸</span>
+          <span class="nav-text">Section 2</span>
+        </a>
+        <a href="./part-3.html">
+          <span class="nav-ico">📄</span>
+          <span class="nav-text">Section 3</span>
+        </a>
+        <a href="./part-4.html">
+          <span class="nav-ico">👤</span>
+          <span class="nav-text">Section 4</span>
+        </a>
+      </nav>
+    </aside>
 
-  <footer>
-    © <span id="year"></span> My Project – All rights reserved.
-  </footer>
+    <!-- RIGHT CONTENT -->
+    <div class="content">
+      <main>
+        <h1>Section 2 · Hemostasis Training Simulation</h1>
+        <p style="color:var(--muted)">Unity-based experimental simulation platform</p>
+
+        <section class="content-block">
+          <h2>Hemostasis Training Simulation (Unity Play / WebGL)</h2>
+          <p>
+            The webpage presents an online Unity-based experimental simulation platform hosted on Unity Play, titled Simulation Learning Lab.
+            It is a browser-accessible interactive environment built with the Unity engine and deployed using WebGL technology, allowing users
+            to run a 3D simulation directly without installing any local software. The platform is designed for simulation-driven learning, where
+            users can interact with virtual scenes, objects, and procedural workflows that emulate real-world laboratory or training scenarios.
+            Through mouse and keyboard interactions, users can explore the environment, follow predefined operational steps, and observe system
+            feedback in real time, making it suitable for education, training demonstrations, and experimental prototyping. As a typical Unity Play
+            deployment, the simulation emphasizes accessibility, visual realism, and interactivity, and is particularly well suited for use as a
+            supplementary teaching tool or as a proof-of-concept for virtual labs and simulation-based learning systems.
+          </p>
+        </section>
+
+        <section class="content-block">
+          <h2>Visualization</h2>
+          <div class="image-block">
+            <img src="image/Hemostasis.png" alt="Hemostasis training simulation visualization">
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        © <span id="year"></span> My Project – All rights reserved.
+      </footer>
+    </div>
+  </div>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
