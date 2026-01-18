@@ -173,6 +173,92 @@
         border-top:1px solid var(--sidebar-divider);
       }
     }
+
+    /* ===== Document viewer styling (inherits your tokens) ===== */
+    .docbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      padding:12px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      margin-top:14px;
+    }
+    .doclabel{
+      font-size:14px;
+      color:var(--muted);
+      margin-right:6px;
+    }
+    .docselect{
+      min-width:260px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      color:var(--text);
+      outline:none;
+    }
+    .doccontrols{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin-left:auto;
+    }
+    .docbtn{
+      appearance:none;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+      padding:9px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:14px;
+      line-height:1;
+    }
+    .docbtn:hover{ background:#f7f7f7; }
+    .doclink{ text-decoration:none; display:inline-flex; align-items:center; }
+    .docmeta{
+      font-size:14px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:0 6px;
+    }
+    .docpage{
+      width:70px;
+      padding:8px 10px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      outline:none;
+    }
+
+    .docviewer{
+      margin-top:14px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fafafa;
+      padding:12px;
+      overflow:auto;
+      max-height:72vh;
+    }
+    .doccanvas-wrap{
+      display:flex;
+      justify-content:center;
+    }
+
+    /* Fullscreen polishing */
+    #viewerWrap:fullscreen{
+      background:#111;
+      padding:18px;
+    }
+    #viewerWrap:fullscreen canvas{
+      background:#fff;
+      border-radius:12px;
+    }
   </style>
 </head>
 
@@ -287,6 +373,49 @@
             <img src="image/8.png" alt="Microscopic assessment image">
           </div>
         </section>
+
+        <!-- ===== Added: PDF/Document Viewer (keeps your original layout) ===== -->
+        <section class="content-block">
+          <h2>Documents</h2>
+          <p style="color:var(--muted)">
+            Select a document to preview. Use the controls to navigate pages.
+          </p>
+
+          <div class="docbar">
+            <label class="doclabel" for="docSelect">Document</label>
+            <select id="docSelect" class="docselect"></select>
+
+            <div class="doccontrols">
+              <button id="prevPage" class="docbtn" type="button">Prev</button>
+              <button id="nextPage" class="docbtn" type="button">Next</button>
+
+              <span class="docmeta">
+                Page
+                <input id="pageNumber" class="docpage" type="number" min="1" value="1">
+                /
+                <span id="pageCount">–</span>
+              </span>
+
+              <button id="zoomOut" class="docbtn" type="button">−</button>
+              <button id="zoomIn" class="docbtn" type="button">+</button>
+              <button id="fitWidth" class="docbtn" type="button">Fit</button>
+
+              <button id="fullscreen" class="docbtn" type="button">Full screen</button>
+              <a id="downloadLink" class="docbtn doclink" href="#" download>Download</a>
+            </div>
+          </div>
+
+          <div class="docviewer" id="viewerWrap">
+            <div class="doccanvas-wrap">
+              <canvas id="pdfCanvas"></canvas>
+            </div>
+          </div>
+
+          <p style="margin-top:10px;color:var(--muted);font-size:14px">
+            Note: Place your PDF files under <strong>./docs/</strong>. For Word documents, convert to PDF for the best
+            paging experience.
+          </p>
+        </section>
       </main>
 
       <footer>
@@ -295,8 +424,174 @@
     </div>
   </div>
 
+  <!-- Keep your original footer year script -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- PDF.js (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.js"></script>
+
+  <!-- PDF viewer logic -->
+  <script>
+    // ====== Configure your documents here ======
+    // Put your PDFs under: ./docs/
+    // For Word: convert to PDF and place here (recommended).
+    const DOCS = [
+      { title: "Experiment Report (PDF)", file: "docs/experiment-report.pdf" },
+      { title: "Protocol – Nephrocalcinosis (PDF)", file: "docs/protocol.pdf" },
+      { title: "Microscopy Notes (PDF)", file: "docs/microscopy-notes.pdf" }
+    ];
+
+    // ====== PDF.js setup ======
+    const { pdfjsLib } = globalThis;
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.min.js";
+
+    const docSelect = document.getElementById("docSelect");
+    const pdfCanvas = document.getElementById("pdfCanvas");
+    const ctx = pdfCanvas.getContext("2d");
+
+    const prevPageBtn = document.getElementById("prevPage");
+    const nextPageBtn = document.getElementById("nextPage");
+    const zoomOutBtn  = document.getElementById("zoomOut");
+    const zoomInBtn   = document.getElementById("zoomIn");
+    const fitWidthBtn = document.getElementById("fitWidth");
+    const fullscreenBtn = document.getElementById("fullscreen");
+
+    const pageNumberInput = document.getElementById("pageNumber");
+    const pageCountSpan = document.getElementById("pageCount");
+    const downloadLink = document.getElementById("downloadLink");
+    const viewerWrap = document.getElementById("viewerWrap");
+
+    let pdfDoc = null;
+    let pageNum = 1;
+    let scale = 1.15;
+    let rendering = false;
+    let pendingPage = null;
+
+    function populateDropdown() {
+      DOCS.forEach((d, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = d.title;
+        docSelect.appendChild(opt);
+      });
+    }
+
+    async function loadDocument(index) {
+      const doc = DOCS[index];
+      if (!doc) return;
+
+      downloadLink.href = doc.file;
+
+      pdfDoc = await pdfjsLib.getDocument(doc.file).promise;
+      pageNum = 1;
+
+      pageCountSpan.textContent = String(pdfDoc.numPages);
+      pageNumberInput.max = String(pdfDoc.numPages);
+      pageNumberInput.value = "1";
+
+      await renderPage(pageNum);
+      // Optional: fit width on first load for a nicer default
+      fitToWidth();
+    }
+
+    async function renderPage(num) {
+      rendering = true;
+
+      const page = await pdfDoc.getPage(num);
+
+      // Build viewport
+      const viewport = page.getViewport({ scale });
+
+      // Resize canvas
+      const outputScale = window.devicePixelRatio || 1;
+      pdfCanvas.width = Math.floor(viewport.width * outputScale);
+      pdfCanvas.height = Math.floor(viewport.height * outputScale);
+      pdfCanvas.style.width = Math.floor(viewport.width) + "px";
+      pdfCanvas.style.height = Math.floor(viewport.height) + "px";
+
+      const transform = outputScale !== 1
+        ? [outputScale, 0, 0, outputScale, 0, 0]
+        : null;
+
+      const renderContext = { canvasContext: ctx, viewport, transform };
+      await page.render(renderContext).promise;
+
+      rendering = false;
+
+      if (pendingPage !== null) {
+        const p = pendingPage;
+        pendingPage = null;
+        await renderPage(p);
+      }
+    }
+
+    function queueRenderPage(num) {
+      if (rendering) pendingPage = num;
+      else renderPage(num);
+    }
+
+    function clampPage(n) {
+      if (!pdfDoc) return 1;
+      return Math.min(Math.max(1, n), pdfDoc.numPages);
+    }
+
+    function goToPage(n) {
+      if (!pdfDoc) return;
+      pageNum = clampPage(n);
+      pageNumberInput.value = String(pageNum);
+      queueRenderPage(pageNum);
+    }
+
+    function fitToWidth() {
+      if (!pdfDoc) return;
+
+      pdfDoc.getPage(pageNum).then(page => {
+        const wrapWidth = viewerWrap.clientWidth - 24; // padding buffer
+        const unscaled = page.getViewport({ scale: 1 });
+
+        // Compute scale to fit width, clamp to sensible bounds
+        scale = Math.max(0.5, Math.min(3.0, wrapWidth / unscaled.width));
+        queueRenderPage(pageNum);
+      });
+    }
+
+    // ====== Events ======
+    docSelect.addEventListener("change", () => loadDocument(Number(docSelect.value)));
+
+    prevPageBtn.addEventListener("click", () => goToPage(pageNum - 1));
+    nextPageBtn.addEventListener("click", () => goToPage(pageNum + 1));
+
+    pageNumberInput.addEventListener("change", () => goToPage(Number(pageNumberInput.value)));
+
+    zoomOutBtn.addEventListener("click", () => {
+      scale = Math.max(0.5, scale - 0.1);
+      queueRenderPage(pageNum);
+    });
+    zoomInBtn.addEventListener("click", () => {
+      scale = Math.min(3.0, scale + 0.1);
+      queueRenderPage(pageNum);
+    });
+    fitWidthBtn.addEventListener("click", fitToWidth);
+
+    fullscreenBtn.addEventListener("click", async () => {
+      if (!document.fullscreenElement) {
+        await viewerWrap.requestFullscreen();
+        setTimeout(fitToWidth, 150);
+      } else {
+        await document.exitFullscreen();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (pdfDoc) fitToWidth();
+    });
+
+    // ====== Init ======
+    populateDropdown();
+    loadDocument(0);
   </script>
 </body>
 </html>
