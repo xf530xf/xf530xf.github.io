@@ -356,172 +356,197 @@
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.js"></script>
 
   <!-- PDF viewer logic -->
-  <script>
-    // ====== Configure your documents here ======
-    // Put your PDFs under: ./docs/
-    // For Word: convert to PDF and place here (recommended).
-const DOCS = [
-  { title: "BUCHENYANG",    file: "docs/BUCHENYANG.pdf" },
-  { title: "MeishanLiu",    file: "docs/MeishanLiu.pdf" },
-  { title: "RuoqiZhao",     file: "docs/RuoqiZhao.pdf" },
-  { title: "Siluxin",       file: "docs/Siluxin.pdf" },
-  { title: "WuShengqi",     file: "docs/WuShengqi.pdf" },
-  { title: "YANZHA",        file: "docs/YANZHA.PDF" },
-  { title: "YingTengchuan", file: "docs/YingTengchuan.pdf" },
-  { title: "review",        file: "docs/review.pdf" }
-];
+<script>
+  // ====== Configure your documents here ======
+  const DOCS = [
+    { title: "BUCHENYANG",    file: "docs/BUCHENYANG.pdf" },
+    { title: "MeishanLiu",    file: "docs/MeishanLiu.pdf" },
+    { title: "RuoqiZhao",     file: "docs/RuoqiZhao.pdf" },
+    { title: "Siluxin",       file: "docs/Siluxin.pdf" },
+    { title: "WuShengqi",     file: "docs/WuShengqi.pdf" },
+    { title: "YANZHA",        file: "docs/YANZHA.PDF" },
+    { title: "YingTengchuan", file: "docs/YingTengchuan.pdf" },
+    { title: "review",        file: "docs/review.pdf" }
+  ];
 
+  // ====== Grab pdfjsLib robustly ======
+  // Some builds expose window.pdfjsLib, others expose a different global.
+  const pdfjsLib = window.pdfjsLib || window["pdfjs-dist/build/pdf"];
+  if (!pdfjsLib) {
+    alert("PDF.js failed to load. Check that the CDN script is reachable.");
+    throw new Error("pdfjsLib not found on window.");
+  }
 
+  // Worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.min.js";
 
-    // ====== PDF.js setup ======
-    const { pdfjsLib } = globalThis;
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.min.js";
+  const docSelect = document.getElementById("docSelect");
+  const pdfCanvas = document.getElementById("pdfCanvas");
+  const ctx = pdfCanvas.getContext("2d");
 
-    const docSelect = document.getElementById("docSelect");
-    const pdfCanvas = document.getElementById("pdfCanvas");
-    const ctx = pdfCanvas.getContext("2d");
+  const prevPageBtn = document.getElementById("prevPage");
+  const nextPageBtn = document.getElementById("nextPage");
+  const zoomOutBtn  = document.getElementById("zoomOut");
+  const zoomInBtn   = document.getElementById("zoomIn");
+  const fitWidthBtn = document.getElementById("fitWidth");
+  const fullscreenBtn = document.getElementById("fullscreen");
 
-    const prevPageBtn = document.getElementById("prevPage");
-    const nextPageBtn = document.getElementById("nextPage");
-    const zoomOutBtn  = document.getElementById("zoomOut");
-    const zoomInBtn   = document.getElementById("zoomIn");
-    const fitWidthBtn = document.getElementById("fitWidth");
-    const fullscreenBtn = document.getElementById("fullscreen");
+  const pageNumberInput = document.getElementById("pageNumber");
+  const pageCountSpan = document.getElementById("pageCount");
+  const downloadLink = document.getElementById("downloadLink");
+  const viewerWrap = document.getElementById("viewerWrap");
 
-    const pageNumberInput = document.getElementById("pageNumber");
-    const pageCountSpan = document.getElementById("pageCount");
-    const downloadLink = document.getElementById("downloadLink");
-    const viewerWrap = document.getElementById("viewerWrap");
+  // ====== Simple error panel (injected) ======
+  const errBox = document.createElement("div");
+  errBox.style.display = "none";
+  errBox.style.marginTop = "12px";
+  errBox.style.padding = "12px";
+  errBox.style.border = "1px solid #f1c1c1";
+  errBox.style.borderRadius = "12px";
+  errBox.style.background = "#fff5f5";
+  errBox.style.color = "#8a1f1f";
+  errBox.style.fontSize = "14px";
+  viewerWrap.parentNode.insertBefore(errBox, viewerWrap);
 
-    let pdfDoc = null;
-    let pageNum = 1;
-    let scale = 1.15;
-    let rendering = false;
-    let pendingPage = null;
+  function showError(msg, err) {
+    console.error(msg, err);
+    errBox.style.display = "block";
+    errBox.textContent = msg + (err?.message ? (" | " + err.message) : "");
+  }
+  function clearError() {
+    errBox.style.display = "none";
+    errBox.textContent = "";
+  }
 
-    function populateDropdown() {
-      DOCS.forEach((d, i) => {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = d.title;
-        docSelect.appendChild(opt);
-      });
-    }
+  let pdfDoc = null;
+  let pageNum = 1;
+  let scale = 1.15;
+  let rendering = false;
+  let pendingPage = null;
 
-    async function loadDocument(index) {
-      const doc = DOCS[index];
-      if (!doc) return;
+  function populateDropdown() {
+    docSelect.innerHTML = "";
+    DOCS.forEach((d, i) => {
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = d.title;
+      docSelect.appendChild(opt);
+    });
+  }
 
-      downloadLink.href = doc.file;
+  async function loadDocument(index) {
+    const doc = DOCS[index];
+    if (!doc) return;
 
-      pdfDoc = await pdfjsLib.getDocument(doc.file).promise;
+    clearError();
+    downloadLink.href = doc.file;
+
+    try {
+      // IMPORTANT:
+      // - Must be served over http(s), not file://
+      // - If your server doesn't support range requests, these flags help
+      pdfDoc = await pdfjsLib.getDocument({
+        url: doc.file,
+        disableAutoFetch: true,
+        disableStream: true
+      }).promise;
+
       pageNum = 1;
-
       pageCountSpan.textContent = String(pdfDoc.numPages);
       pageNumberInput.max = String(pdfDoc.numPages);
       pageNumberInput.value = "1";
 
       await renderPage(pageNum);
-      // Optional: fit width on first load for a nicer default
       fitToWidth();
+    } catch (err) {
+      pdfDoc = null;
+      pageCountSpan.textContent = "–";
+      showError(
+        "Failed to load PDF. Most common reasons: (1) opened via file:// instead of a web server, (2) wrong path/docs folder, (3) filename case mismatch (YANZHA.PDF vs YANZHA.pdf).",
+        err
+      );
     }
+  }
 
-    async function renderPage(num) {
-      rendering = true;
+  async function renderPage(num) {
+    if (!pdfDoc) return;
+    rendering = true;
 
-      const page = await pdfDoc.getPage(num);
+    const page = await pdfDoc.getPage(num);
+    const viewport = page.getViewport({ scale });
 
-      // Build viewport
-      const viewport = page.getViewport({ scale });
+    const outputScale = window.devicePixelRatio || 1;
+    pdfCanvas.width = Math.floor(viewport.width * outputScale);
+    pdfCanvas.height = Math.floor(viewport.height * outputScale);
+    pdfCanvas.style.width = Math.floor(viewport.width) + "px";
+    pdfCanvas.style.height = Math.floor(viewport.height) + "px";
 
-      // Resize canvas
-      const outputScale = window.devicePixelRatio || 1;
-      pdfCanvas.width = Math.floor(viewport.width * outputScale);
-      pdfCanvas.height = Math.floor(viewport.height * outputScale);
-      pdfCanvas.style.width = Math.floor(viewport.width) + "px";
-      pdfCanvas.style.height = Math.floor(viewport.height) + "px";
+    const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
 
-      const transform = outputScale !== 1
-        ? [outputScale, 0, 0, outputScale, 0, 0]
-        : null;
+    const renderContext = { canvasContext: ctx, viewport, transform };
+    await page.render(renderContext).promise;
 
-      const renderContext = { canvasContext: ctx, viewport, transform };
-      await page.render(renderContext).promise;
-
-      rendering = false;
-
-      if (pendingPage !== null) {
-        const p = pendingPage;
-        pendingPage = null;
-        await renderPage(p);
-      }
+    rendering = false;
+    if (pendingPage !== null) {
+      const p = pendingPage;
+      pendingPage = null;
+      await renderPage(p);
     }
+  }
 
-    function queueRenderPage(num) {
-      if (rendering) pendingPage = num;
-      else renderPage(num);
-    }
+  function queueRenderPage(num) {
+    if (rendering) pendingPage = num;
+    else renderPage(num);
+  }
 
-    function clampPage(n) {
-      if (!pdfDoc) return 1;
-      return Math.min(Math.max(1, n), pdfDoc.numPages);
-    }
+  function clampPage(n) {
+    if (!pdfDoc) return 1;
+    return Math.min(Math.max(1, n), pdfDoc.numPages);
+  }
 
-    function goToPage(n) {
-      if (!pdfDoc) return;
-      pageNum = clampPage(n);
-      pageNumberInput.value = String(pageNum);
-      queueRenderPage(pageNum);
-    }
+  function goToPage(n) {
+    if (!pdfDoc) return;
+    pageNum = clampPage(n);
+    pageNumberInput.value = String(pageNum);
+    queueRenderPage(pageNum);
+  }
 
-    function fitToWidth() {
-      if (!pdfDoc) return;
-
-      pdfDoc.getPage(pageNum).then(page => {
-        const wrapWidth = viewerWrap.clientWidth - 24; // padding buffer
-        const unscaled = page.getViewport({ scale: 1 });
-
-        // Compute scale to fit width, clamp to sensible bounds
-        scale = Math.max(0.5, Math.min(3.0, wrapWidth / unscaled.width));
-        queueRenderPage(pageNum);
-      });
-    }
-
-    // ====== Events ======
-    docSelect.addEventListener("change", () => loadDocument(Number(docSelect.value)));
-
-    prevPageBtn.addEventListener("click", () => goToPage(pageNum - 1));
-    nextPageBtn.addEventListener("click", () => goToPage(pageNum + 1));
-
-    pageNumberInput.addEventListener("change", () => goToPage(Number(pageNumberInput.value)));
-
-    zoomOutBtn.addEventListener("click", () => {
-      scale = Math.max(0.5, scale - 0.1);
+  function fitToWidth() {
+    if (!pdfDoc) return;
+    pdfDoc.getPage(pageNum).then(page => {
+      const wrapWidth = viewerWrap.clientWidth - 24;
+      const unscaled = page.getViewport({ scale: 1 });
+      scale = Math.max(0.5, Math.min(3.0, wrapWidth / unscaled.width));
       queueRenderPage(pageNum);
     });
-    zoomInBtn.addEventListener("click", () => {
-      scale = Math.min(3.0, scale + 0.1);
-      queueRenderPage(pageNum);
-    });
-    fitWidthBtn.addEventListener("click", fitToWidth);
+  }
 
-    fullscreenBtn.addEventListener("click", async () => {
-      if (!document.fullscreenElement) {
-        await viewerWrap.requestFullscreen();
-        setTimeout(fitToWidth, 150);
-      } else {
-        await document.exitFullscreen();
-      }
-    });
+  // Events
+  docSelect.addEventListener("change", () => loadDocument(Number(docSelect.value)));
+  prevPageBtn.addEventListener("click", () => goToPage(pageNum - 1));
+  nextPageBtn.addEventListener("click", () => goToPage(pageNum + 1));
+  pageNumberInput.addEventListener("change", () => goToPage(Number(pageNumberInput.value)));
 
-    window.addEventListener("resize", () => {
-      if (pdfDoc) fitToWidth();
-    });
+  zoomOutBtn.addEventListener("click", () => { scale = Math.max(0.5, scale - 0.1); queueRenderPage(pageNum); });
+  zoomInBtn.addEventListener("click", () => { scale = Math.min(3.0, scale + 0.1); queueRenderPage(pageNum); });
+  fitWidthBtn.addEventListener("click", fitToWidth);
 
-    // ====== Init ======
-    populateDropdown();
-    loadDocument(0);
-  </script>
+  fullscreenBtn.addEventListener("click", async () => {
+    if (!document.fullscreenElement) {
+      await viewerWrap.requestFullscreen();
+      setTimeout(fitToWidth, 150);
+    } else {
+      await document.exitFullscreen();
+    }
+  });
+
+  window.addEventListener("resize", () => { if (pdfDoc) fitToWidth(); });
+
+  // Init
+  populateDropdown();
+  loadDocument(0);
+</script>
+
 </body>
 </html>
