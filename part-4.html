@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Section 1 · Project Overview</title>
-  <meta name="description" content="Overview, milestones, and responsibilities for the histological kidney tissue project.">
+  <title>PDF Viewer · Docs</title>
+  <meta name="description" content="Preview PDFs stored in ./docs/ using the browser's built-in PDF viewer.">
 
   <style>
-    :root {
+    :root{
       --bg:#ffffff;
       --text:#111111;
       --muted:#444444;
@@ -15,15 +15,14 @@
       --accent:#004aad;
       --radius:14px;
 
-      /* Sidebar tokens (match previous layout) */
-      --sidebar-w: 300px;
-      --sidebar-bg: #1f2328;
-      --sidebar-bg-2: #14171b;
-      --sidebar-text: rgba(255,255,255,0.92);
-      --sidebar-muted: rgba(255,255,255,0.62);
-      --sidebar-active: rgba(255,255,255,0.12);
-      --sidebar-hover: rgba(255,255,255,0.08);
-      --sidebar-divider: rgba(255,255,255,0.10);
+      --sidebar-w:300px;
+      --sidebar-bg:#1f2328;
+      --sidebar-bg-2:#14171b;
+      --sidebar-text:rgba(255,255,255,.92);
+      --sidebar-muted:rgba(255,255,255,.62);
+      --sidebar-active:rgba(255,255,255,.12);
+      --sidebar-hover:rgba(255,255,255,.08);
+      --sidebar-divider:rgba(255,255,255,.10);
     }
 
     *{box-sizing:border-box;}
@@ -36,83 +35,40 @@
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* ===== Layout: sidebar + content ===== */
-    .layout{
-      display:flex;
-      min-height:100vh;
-    }
+    .layout{display:flex;min-height:100vh;}
 
-    /* ===== Sidebar ===== */
     .sidebar{
       width:var(--sidebar-w);
       background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg-2));
       color:var(--sidebar-text);
-      position:sticky;
-      top:0;
-      height:100vh;
-      overflow:auto;
-      border-right:1px solid rgba(0,0,0,0.15);
+      position:sticky;top:0;height:100vh;overflow:auto;
+      border-right:1px solid rgba(0,0,0,.15);
     }
     .sidebar-header{
       padding:22px 20px 14px;
       border-bottom:1px solid var(--sidebar-divider);
     }
-    .sidebar-title{
-      font-size:22px;
-      font-weight:750;
-      margin:0;
-      letter-spacing:.2px;
-    }
-    .sidebar-subtitle{
-      margin:6px 0 0 0;
-      color:var(--sidebar-muted);
-      font-size:13px;
-    }
+    .sidebar-title{font-size:22px;font-weight:750;margin:0;letter-spacing:.2px;}
+    .sidebar-subtitle{margin:6px 0 0 0;color:var(--sidebar-muted);font-size:13px;}
 
     .side-nav{padding:10px 0;}
     .side-nav a{
-      display:flex;
-      align-items:center;
-      gap:12px;
-
-      padding:14px 18px;
-      color:var(--sidebar-muted);
-      text-decoration:none;
-
+      display:flex;align-items:center;gap:12px;
+      padding:14px 18px;color:var(--sidebar-muted);text-decoration:none;
       border-top:1px solid rgba(255,255,255,0.03);
       border-bottom:1px solid rgba(0,0,0,0.12);
       transition:background .15s,color .15s;
     }
-    .side-nav a:hover{
-      background:var(--sidebar-hover);
-      color:var(--sidebar-text);
-      text-decoration:none;
-    }
-    .side-nav a.active{
-      background:var(--sidebar-active);
-      color:var(--sidebar-text);
-    }
+    .side-nav a:hover{background:var(--sidebar-hover);color:var(--sidebar-text);text-decoration:none;}
+    .side-nav a.active{background:var(--sidebar-active);color:var(--sidebar-text);}
     .nav-ico{
-      width:26px;height:26px;
-      display:inline-grid;place-items:center;
-      border-radius:8px;
-      color:var(--sidebar-muted);
-      flex:0 0 26px;
-      font-size:16px;
+      width:26px;height:26px;display:inline-grid;place-items:center;
+      border-radius:8px;color:var(--sidebar-muted);flex:0 0 26px;font-size:16px;
     }
-    .side-nav a.active .nav-ico{
-      color:#ff6b8a;
-    }
-    .nav-text{
-      font-size:15px;
-      letter-spacing:.2px;
-    }
+    .side-nav a.active .nav-ico{color:#ff6b8a;}
+    .nav-text{font-size:15px;letter-spacing:.2px;}
 
-    /* ===== Content ===== */
-    .content{
-      flex:1;
-      background:var(--bg);
-    }
+    .content{flex:1;background:var(--bg);}
     main{max-width:1100px;margin:0 auto;padding:30px 16px 60px;}
     h1{font-size:28px;margin-top:0;color:var(--accent);}
     h2{margin-top:28px;font-size:22px;color:var(--accent);}
@@ -135,102 +91,56 @@
       margin-top:40px;
     }
 
-    /* ===== Responsive: collapse sidebar to top ===== */
     @media (max-width: 900px){
       .layout{flex-direction:column;}
-      .sidebar{
-        width:100%;
-        height:auto;
-        position:relative;
-      }
-      .side-nav{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-      }
-      .side-nav a{
-        border:none;
-        border-top:1px solid var(--sidebar-divider);
-      }
+      .sidebar{width:100%;height:auto;position:relative;}
+      .side-nav{display:grid;grid-template-columns:1fr 1fr;}
+      .side-nav a{border:none;border-top:1px solid var(--sidebar-divider);}
     }
 
-    /* ===== Document viewer styling ===== */
+    /* Viewer UI */
     .docbar{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      align-items:center;
-      padding:12px;
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      background:#fff;
+      display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+      padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:#fff;
       margin-top:14px;
     }
-    .doclabel{
-      font-size:14px;
-      color:var(--muted);
-      margin-right:6px;
-    }
+    .doclabel{font-size:14px;color:var(--muted);margin-right:6px;}
     .docselect{
       min-width:260px;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:#fff;
-      color:var(--text);
-      outline:none;
+      padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+      background:#fff;color:var(--text);outline:none;
     }
-    .doccontrols{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
-      margin-left:auto;
-    }
+    .doccontrols{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-left:auto;}
     .docbtn{
-      appearance:none;
-      border:1px solid var(--border);
-      background:#fff;
-      color:var(--text);
-      padding:9px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-size:14px;
-      line-height:1;
+      appearance:none;border:1px solid var(--border);background:#fff;color:var(--text);
+      padding:9px 12px;border-radius:12px;cursor:pointer;font-size:14px;line-height:1;
     }
-    .docbtn:hover{ background:#f7f7f7; }
-    .doclink{ text-decoration:none; display:inline-flex; align-items:center; }
+    .docbtn:hover{background:#f7f7f7;}
+    .doclink{display:inline-flex;align-items:center;text-decoration:none;}
 
     .docmeta{
-      font-size:14px;
-      color:var(--muted);
-      display:flex;
-      align-items:center;
-      gap:6px;
-      padding:0 6px;
+      font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px;padding:0 6px;
     }
     .docpage{
-      width:70px;
-      padding:8px 10px;
-      border:1px solid var(--border);
-      border-radius:10px;
-      outline:none;
+      width:90px;
+      padding:8px 10px;border:1px solid var(--border);border-radius:10px;outline:none;
     }
 
-    .docviewer{
+    .viewer{
       margin-top:14px;
       border:1px solid var(--border);
       border-radius:var(--radius);
       background:#fafafa;
-      padding:12px;
-      overflow:auto;
-      max-height:72vh;
+      overflow:hidden;
+      height:min(72vh, 820px);
     }
-    .doccanvas-wrap{
-      display:flex;
-      justify-content:center;
+    iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      background:#fff;
     }
 
-    /* Error panel */
     .errorbox{
       display:none;
       margin-top:12px;
@@ -243,25 +153,16 @@
       white-space:pre-wrap;
     }
 
-    /* Fullscreen polishing */
-    #viewerWrap:fullscreen{
-      background:#111;
-      padding:18px;
-    }
-    #viewerWrap:fullscreen canvas{
-      background:#fff;
-      border-radius:12px;
-    }
+    code{background:#f2f2f2;padding:2px 6px;border-radius:8px;}
   </style>
 </head>
 
 <body>
   <div class="layout">
-    <!-- LEFT SIDEBAR -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <h1 class="sidebar-title">📁 My Project</h1>
-        <p class="sidebar-subtitle">Histology workflow · Nephrocalcinosis</p>
+        <p class="sidebar-subtitle">Docs preview · GitHub Pages friendly</p>
       </div>
 
       <nav class="side-nav">
@@ -270,32 +171,31 @@
           <span class="nav-text">Back to Index</span>
         </a>
         <a href="./part-1.html" class="active">
-          <span class="nav-ico">🏠</span>
-          <span class="nav-text">Photo</span>
+          <span class="nav-ico">📄</span>
+          <span class="nav-text">Documents</span>
         </a>
         <a href="./part-3.html">
           <span class="nav-ico">✍️</span>
           <span class="nav-text">Activity</span>
         </a>
         <a href="./part-4.html">
-          <span class="nav-ico">📄</span>
+          <span class="nav-ico">🧪</span>
           <span class="nav-text">Experiment Report</span>
         </a>
       </nav>
     </aside>
 
-    <!-- RIGHT CONTENT -->
     <div class="content">
       <main>
-        <h1>Section 1 · Project Overview</h1>
+        <h1>PDF Viewer (No PDF.js)</h1>
         <p style="color:var(--muted)">
-          Treatment and workflow with histological kidney tissue affected by nephrocalcinosis.
+          This page uses the browser’s built-in PDF viewer via <code>&lt;iframe&gt;</code>. It is typically the most reliable approach on GitHub Pages.
         </p>
 
         <section class="content-block">
           <h2>Documents</h2>
           <p style="color:var(--muted)">
-            Select a document to preview. Use the controls to navigate pages.
+            Select a PDF under <code>./docs/</code>. You can also open it in a new tab or download it directly.
           </p>
 
           <div class="docbar">
@@ -303,36 +203,30 @@
             <select id="docSelect" class="docselect"></select>
 
             <div class="doccontrols">
-              <button id="prevPage" class="docbtn" type="button">Prev</button>
-              <button id="nextPage" class="docbtn" type="button">Next</button>
-
               <span class="docmeta">
                 Page
                 <input id="pageNumber" class="docpage" type="number" min="1" value="1">
-                /
-                <span id="pageCount">–</span>
               </span>
 
-              <button id="zoomOut" class="docbtn" type="button">−</button>
-              <button id="zoomIn" class="docbtn" type="button">+</button>
-              <button id="fitWidth" class="docbtn" type="button">Fit</button>
+              <button id="goPage" class="docbtn" type="button">Go</button>
+              <button id="reload" class="docbtn" type="button">Reload</button>
 
-              <button id="fullscreen" class="docbtn" type="button">Full screen</button>
-              <a id="downloadLink" class="docbtn doclink" href="#" download>Download</a>
+              <a id="openTab" class="docbtn doclink" href="#" target="_blank" rel="noopener">Open</a>
+              <a id="download" class="docbtn doclink" href="#" download>Download</a>
             </div>
           </div>
 
-          <div id="pdfError" class="errorbox"></div>
+          <div id="err" class="errorbox"></div>
 
-          <div class="docviewer" id="viewerWrap">
-            <div class="doccanvas-wrap">
-              <canvas id="pdfCanvas"></canvas>
-            </div>
+          <div class="viewer">
+            <iframe id="pdfFrame" title="PDF preview"></iframe>
           </div>
 
           <p style="margin-top:10px;color:var(--muted);font-size:14px">
-            Note: Place your PDF files under <strong>./docs/</strong>.
-            GitHub Pages is case-sensitive (YANZHA.PDF ≠ yanzha.pdf).
+            Notes:
+            <br>1) Put PDFs under <strong>./docs/</strong>.
+            <br>2) GitHub Pages is case-sensitive (e.g., <code>YANZHA.PDF</code> ≠ <code>yanzha.pdf</code>).
+            <br>3) If a PDF still does not render, try clicking <strong>Open</strong> to verify the direct URL works.
           </p>
         </section>
       </main>
@@ -344,16 +238,9 @@
   </div>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-  <!-- =========================================================
-       PDF.js (LEGACY build): provides window.pdfjsLib reliably
-       ========================================================= -->
-  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/legacy/build/pdf.min.js"></script>
-
-  <script>
-    // ========= Documents =========
+    // Put your PDFs here (paths relative to this HTML file)
     const DOCS = [
       { title: "BUCHENYANG",    file: "docs/BUCHENYANG.pdf" },
       { title: "MeishanLiu",    file: "docs/MeishanLiu.pdf" },
@@ -365,177 +252,95 @@
       { title: "review",        file: "docs/review.pdf" }
     ];
 
-    // ========= PDF.js setup =========
-    const pdfjsLib = window.pdfjsLib;
-    const errorBox = document.getElementById("pdfError");
+    const docSelect = document.getElementById("docSelect");
+    const pageInput = document.getElementById("pageNumber");
+    const goPageBtn = document.getElementById("goPage");
+    const reloadBtn = document.getElementById("reload");
 
-    function showError(msg, err) {
-      console.error(msg, err);
-      errorBox.style.display = "block";
-      errorBox.textContent =
-        msg + (err?.message ? ("\n\nError: " + err.message) : "");
+    const pdfFrame = document.getElementById("pdfFrame");
+    const openTab = document.getElementById("openTab");
+    const download = document.getElementById("download");
+
+    const err = document.getElementById("err");
+
+    function showError(message) {
+      err.style.display = "block";
+      err.textContent = message;
     }
     function clearError() {
-      errorBox.style.display = "none";
-      errorBox.textContent = "";
+      err.style.display = "none";
+      err.textContent = "";
     }
-
-    if (!pdfjsLib) {
-      showError(
-        "PDF.js failed to load. Most likely the CDN is blocked or unreachable.\n" +
-        "Try switching networks, disabling blocking extensions, or self-hosting pdf.js files."
-      );
-      throw new Error("window.pdfjsLib is undefined.");
-    }
-
-    // Worker (LEGACY)
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/legacy/build/pdf.worker.min.js";
-
-    const docSelect = document.getElementById("docSelect");
-    const pdfCanvas = document.getElementById("pdfCanvas");
-    const ctx = pdfCanvas.getContext("2d");
-
-    const prevPageBtn = document.getElementById("prevPage");
-    const nextPageBtn = document.getElementById("nextPage");
-    const zoomOutBtn  = document.getElementById("zoomOut");
-    const zoomInBtn   = document.getElementById("zoomIn");
-    const fitWidthBtn = document.getElementById("fitWidth");
-    const fullscreenBtn = document.getElementById("fullscreen");
-
-    const pageNumberInput = document.getElementById("pageNumber");
-    const pageCountSpan = document.getElementById("pageCount");
-    const downloadLink = document.getElementById("downloadLink");
-    const viewerWrap = document.getElementById("viewerWrap");
-
-    let pdfDoc = null;
-    let pageNum = 1;
-    let scale = 1.15;
-    let rendering = false;
-    let pendingPage = null;
 
     function populateDropdown() {
       docSelect.innerHTML = "";
       DOCS.forEach((d, i) => {
         const opt = document.createElement("option");
-        opt.value = i;
+        opt.value = String(i);
         opt.textContent = d.title;
         docSelect.appendChild(opt);
       });
     }
 
-    async function loadDocument(index) {
-      const doc = DOCS[index];
+    // Build a URL like: docs/file.pdf#page=3
+    function buildPdfUrl(file, page) {
+      const p = Math.max(1, Number(page) || 1);
+      // Most built-in viewers support #page=
+      return `${file}#page=${p}`;
+    }
+
+    function loadSelected(page = 1) {
+      clearError();
+
+      const doc = DOCS[Number(docSelect.value)];
       if (!doc) return;
 
-      clearError();
-      downloadLink.href = doc.file;
+      const url = buildPdfUrl(doc.file, page);
+      pdfFrame.src = url;
 
-      try {
-        // If your hosting has issues with range requests, these flags help.
-        pdfDoc = await pdfjsLib.getDocument({
-          url: doc.file,
-          disableAutoFetch: true,
-          disableStream: true
-        }).promise;
+      // Set Open/Download links without hash
+      openTab.href = doc.file;
+      download.href = doc.file;
 
-        pageNum = 1;
-        pageCountSpan.textContent = String(pdfDoc.numPages);
-        pageNumberInput.max = String(pdfDoc.numPages);
-        pageNumberInput.value = "1";
-
-        await renderPage(pageNum);
-        fitToWidth();
-      } catch (err) {
-        pdfDoc = null;
-        pageCountSpan.textContent = "–";
-        showError(
-          "Failed to load the PDF.\n" +
-          "Checklist:\n" +
-          "1) The PDF must exist under ./docs/\n" +
-          "2) Filename must match EXACT case (GitHub Pages is case-sensitive)\n" +
-          "3) Try opening the PDF directly in the browser (e.g., /docs/BUCHENYANG.pdf)\n",
-          err
-        );
-      }
-    }
-
-    async function renderPage(num) {
-      if (!pdfDoc) return;
-      rendering = true;
-
-      const page = await pdfDoc.getPage(num);
-      const viewport = page.getViewport({ scale });
-
-      const outputScale = window.devicePixelRatio || 1;
-      pdfCanvas.width = Math.floor(viewport.width * outputScale);
-      pdfCanvas.height = Math.floor(viewport.height * outputScale);
-      pdfCanvas.style.width = Math.floor(viewport.width) + "px";
-      pdfCanvas.style.height = Math.floor(viewport.height) + "px";
-
-      const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-
-      await page.render({ canvasContext: ctx, viewport, transform }).promise;
-
-      rendering = false;
-      if (pendingPage !== null) {
-        const p = pendingPage;
-        pendingPage = null;
-        await renderPage(p);
-      }
-    }
-
-    function queueRenderPage(num) {
-      if (rendering) pendingPage = num;
-      else renderPage(num);
-    }
-
-    function clampPage(n) {
-      if (!pdfDoc) return 1;
-      return Math.min(Math.max(1, n), pdfDoc.numPages);
-    }
-
-    function goToPage(n) {
-      if (!pdfDoc) return;
-      pageNum = clampPage(n);
-      pageNumberInput.value = String(pageNum);
-      queueRenderPage(pageNum);
-    }
-
-    function fitToWidth() {
-      if (!pdfDoc) return;
-      pdfDoc.getPage(pageNum).then(page => {
-        const wrapWidth = viewerWrap.clientWidth - 24;
-        const unscaled = page.getViewport({ scale: 1 });
-        scale = Math.max(0.5, Math.min(3.0, wrapWidth / unscaled.width));
-        queueRenderPage(pageNum);
-      });
+      // Basic sanity hint: if user typed page, keep it.
+      pageInput.value = String(Math.max(1, Number(page) || 1));
     }
 
     // Events
-    docSelect.addEventListener("change", () => loadDocument(Number(docSelect.value)));
-    prevPageBtn.addEventListener("click", () => goToPage(pageNum - 1));
-    nextPageBtn.addEventListener("click", () => goToPage(pageNum + 1));
-    pageNumberInput.addEventListener("change", () => goToPage(Number(pageNumberInput.value)));
-
-    zoomOutBtn.addEventListener("click", () => { scale = Math.max(0.5, scale - 0.1); queueRenderPage(pageNum); });
-    zoomInBtn.addEventListener("click", () => { scale = Math.min(3.0, scale + 0.1); queueRenderPage(pageNum); });
-    fitWidthBtn.addEventListener("click", fitToWidth);
-
-    fullscreenBtn.addEventListener("click", async () => {
-      if (!document.fullscreenElement) {
-        await viewerWrap.requestFullscreen();
-        setTimeout(fitToWidth, 150);
-      } else {
-        await document.exitFullscreen();
-      }
+    docSelect.addEventListener("change", () => loadSelected(Number(pageInput.value) || 1));
+    goPageBtn.addEventListener("click", () => loadSelected(Number(pageInput.value) || 1));
+    pageInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") loadSelected(Number(pageInput.value) || 1);
     });
 
-    window.addEventListener("resize", () => { if (pdfDoc) fitToWidth(); });
+    // Force reload iframe (useful if GH Pages cached something)
+    reloadBtn.addEventListener("click", () => {
+      const src = pdfFrame.src;
+      // Cache-bust without breaking relative paths
+      const cacheBust = (src.includes("?") ? "&" : "?") + "v=" + Date.now();
+      pdfFrame.src = src + cacheBust;
+    });
 
     // Init
     populateDropdown();
-    loadDocument(0);
+    docSelect.value = "0";
+    loadSelected(1);
+
+    // Optional: allow URL param like ?doc=YANZHA&page=2
+    (function loadFromQuery() {
+      const params = new URLSearchParams(location.search);
+      const docName = params.get("doc");
+      const page = Number(params.get("page") || "1");
+      if (!docName) return;
+
+      const idx = DOCS.findIndex(d => d.title.toLowerCase() === docName.toLowerCase());
+      if (idx >= 0) {
+        docSelect.value = String(idx);
+        loadSelected(page);
+      } else {
+        showError(`Document not found in DOCS list: ${docName}\nCheck the title or update the DOCS array.`);
+      }
+    })();
   </script>
 </body>
 </html>
