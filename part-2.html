@@ -15,7 +15,6 @@
       --accent:#004aad;
       --radius:14px;
 
-      /* Sidebar tokens (match unified layout) */
       --sidebar-w: 300px;
       --sidebar-bg: #1f2328;
       --sidebar-bg-2: #14171b;
@@ -34,15 +33,9 @@
       font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
     }
     a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
 
-    /* ===== Layout: sidebar + content ===== */
-    .layout{
-      display:flex;
-      min-height:100vh;
-    }
+    .layout{display:flex;min-height:100vh;}
 
-    /* ===== Sidebar ===== */
     .sidebar{
       width:var(--sidebar-w);
       background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg-2));
@@ -51,72 +44,46 @@
       top:0;
       height:100vh;
       overflow:auto;
-      border-right:1px solid rgba(0,0,0,0.15);
     }
+
     .sidebar-header{
       padding:22px 20px 14px;
       border-bottom:1px solid var(--sidebar-divider);
     }
+
     .sidebar-title{
       font-size:22px;
       font-weight:750;
       margin:0;
-      letter-spacing:.2px;
-    }
-    .sidebar-subtitle{
-      margin:6px 0 0 0;
-      color:var(--sidebar-muted);
-      font-size:13px;
     }
 
-    .side-nav{padding:10px 0;}
+    .sidebar-subtitle{
+      margin-top:6px;
+      font-size:13px;
+      color:var(--sidebar-muted);
+    }
+
     .side-nav a{
       display:flex;
       align-items:center;
       gap:12px;
-
       padding:14px 18px;
       color:var(--sidebar-muted);
-      text-decoration:none;
-
       border-top:1px solid rgba(255,255,255,0.03);
-      border-bottom:1px solid rgba(0,0,0,0.12);
       transition:background .15s,color .15s;
     }
-    .side-nav a:hover{
-      background:var(--sidebar-hover);
-      color:var(--sidebar-text);
-      text-decoration:none;
-    }
+
+    .side-nav a:hover,
     .side-nav a.active{
       background:var(--sidebar-active);
-      color:var(--sidebar-text);
-    }
-    .nav-ico{
-      width:26px;height:26px;
-      display:inline-grid;place-items:center;
-      border-radius:8px;
-      color:var(--sidebar-muted);
-      flex:0 0 26px;
-      font-size:16px;
-    }
-    .side-nav a.active .nav-ico{
-      color:#ff6b8a;
-    }
-    .nav-text{
-      font-size:15px;
-      letter-spacing:.2px;
+      color:#fff;
     }
 
-    /* ===== Content ===== */
-    .content{
-      flex:1;
-      background:var(--bg);
-    }
+    .content{flex:1;}
     main{max-width:1100px;margin:0 auto;padding:30px 16px 60px;}
-    h1{font-size:28px;margin-top:0;color:var(--accent);}
-    h2{margin-top:28px;font-size:22px;color:var(--accent);}
-    p{margin:10px 0;}
+
+    h1{color:var(--accent);}
+    h2{margin-top:28px;color:var(--accent);}
 
     section.content-block{
       border:1px solid var(--border);
@@ -128,13 +95,32 @@
 
     .image-block{
       text-align:center;
-      margin-top:14px;
+      margin-top:16px;
     }
+
     .image-block img{
       max-width:100%;
-      height:auto;
       border-radius:var(--radius);
       box-shadow:0 4px 14px rgba(0,0,0,0.1);
+    }
+
+    /* === Jump Button === */
+    .jump-btn{
+      display:inline-block;
+      margin-top:14px;
+      padding:10px 22px;
+      background:var(--accent);
+      color:#fff;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:600;
+      transition:transform .15s, box-shadow .15s, opacity .15s;
+    }
+
+    .jump-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.15);
+      opacity:.92;
     }
 
     footer{
@@ -145,118 +131,76 @@
       font-size:14px;
       margin-top:40px;
     }
-
-    /* ===== Responsive: collapse sidebar to top ===== */
-    @media (max-width: 900px){
-      .layout{flex-direction:column;}
-      .sidebar{
-        width:100%;
-        height:auto;
-        position:relative;
-      }
-      .side-nav{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-      }
-      .side-nav a{
-        border:none;
-        border-top:1px solid var(--sidebar-divider);
-      }
-    }
   </style>
 </head>
 
 <body>
-  <div class="layout">
-    <!-- LEFT SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h1 class="sidebar-title">📁 My Project</h1>
-        <p class="sidebar-subtitle">Simulation Learning Lab</p>
-      </div>
+<div class="layout">
 
-      <nav class="side-nav">
-        <a href="./index.html">
-          <span class="nav-ico">↩️</span>
-          <span class="nav-text">Back to Index</span>
-        </a>
-        <a href="./part-2.html">
-          <span class="nav-ico">🏠</span>
-          <span class="nav-text">Digital Twin</span>
-        </a>
-        <a href="./part-21.html" class="active">
-          <span class="nav-ico">🩸</span>
-          <span class="nav-text">Immunology Course</span>
-        </a>
-        <a href="./part-22.html">
-          <span class="nav-ico">📄</span>
-          <span class="nav-text">ABX Pentra XL80 User Guide</span>
-        </a>
-        <a href="./part-23.html">
-          <span class="nav-ico">👤</span>
-          <span class="nav-text">Histology Course</span>
-        </a>
-      </nav>
-    </aside>
-
-    <!-- RIGHT CONTENT -->
-    <div class="content">
-      <main>
-        <h1>Section 2 · Hemostasis Training Simulation</h1>
-        <p style="color:var(--muted)">Unity-based experimental simulation platform</p>
-
-        <section class="content-block">
-          <h2>Hemostasis Training Simulation (Unity Play / WebGL)</h2>
-          <p>
-            The webpage presents an online Unity-based experimental simulation platform hosted on Unity Play, titled Simulation Learning Lab.
-            It is a browser-accessible interactive environment built with the Unity engine and deployed using WebGL technology, allowing users
-            to run a 3D simulation directly without installing any local software. The platform is designed for simulation-driven learning, where
-            users can interact with virtual scenes, objects, and procedural workflows that emulate real-world laboratory or training scenarios.
-            Through mouse and keyboard interactions, users can explore the environment, follow predefined operational steps, and observe system
-            feedback in real time, making it suitable for education, training demonstrations, and experimental prototyping. As a typical Unity Play
-            deployment, the simulation emphasizes accessibility, visual realism, and interactivity, and is particularly well-suited for use as a
-            supplementary teaching tool or as a proof-of-concept for virtual labs and simulation-based learning systems.
-            Hemostasis refers to the processes by which the body causes bleeding from wounds to stop. 
-            
-            The process depends on a cascade of interactions between different factors in the blood. Imbalances between these factors can affect the body's ability to maintain hemostasis. Common imbalances between factors can be detected and characterized by laboratoryexperiments performed on samples of patient plasma, including:
-
-            Prothrombin Time-International Normalized Ratio (PT-INR)
-            Activated Partial Thromboplastin Time (APTT)
-            Fibrinogen
-            These experiments can be performed manually. In clinical settings the tests are typicallyconducted using automated equipment. In this course, you will simulate performing the experiments with partial automation using the Stago Start 4 Hemostasis Analyzer machine. The procedures for each experiment are similarbut differ in important was including the choice of reagent.
-
-            
-          </p>
-        </section>
-
-        <section class="content-block">
-          <h2>Prothrombin Time-International Normalized Ratio (PT-INR)</h2>
-          <div class="image-block">
-            <img src="image/DT1.png" alt="Hemostasis training simulation visualization">
-          </div>
-        </section>
-        <section class="content-block">
-          <h2>Visualization</h2>
-          <div class="image-block">
-            <img src="image/DT2.png" alt="Hemostasis training simulation visualization">
-          </div>
-        </section>
-        <section class="content-block">
-          <h2>Activated Partial Thromboplastin Time (APTT)</h2>
-          <div class="image-block">
-            <img src="image/DT3.png" alt="Hemostasis training simulation visualization">
-          </div>
-        </section>
-      </main>
-
-      <footer>
-        © <span id="year"></span> My Project – All rights reserved.
-      </footer>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1 class="sidebar-title">📁 My Project</h1>
+      <p class="sidebar-subtitle">Simulation Learning Lab</p>
     </div>
-  </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    <nav class="side-nav">
+      <a href="./index.html">↩️ Back to Index</a>
+      <a href="./part-2.html">🏠 Digital Twin</a>
+      <a href="./part-21.html" class="active">🩸 Immunology Course</a>
+      <a href="./part-22.html">📄 ABX Pentra XL80 User Guide</a>
+      <a href="./part-23.html">👤 Histology Course</a>
+    </nav>
+  </aside>
+
+  <!-- Content -->
+  <div class="content">
+    <main>
+      <h1>Section 2 · Hemostasis Training Simulation</h1>
+
+      <section class="content-block">
+        <h2>Prothrombin Time-International Normalized Ratio (PT-INR)</h2>
+        <div class="image-block">
+          <img src="image/DT1.png" alt="PT-INR simulation">
+          <br>
+          <a class="jump-btn" href="https://play.unity.com/en/games/8d3668e0-5571-4aa9-be0b-1cf747a488f0/simulation-learning-lab" target="_blank">
+            ▶ Launch Unity Simulation
+          </a>
+        </div>
+      </section>
+
+      <section class="content-block">
+        <h2>Visualization</h2>
+        <div class="image-block">
+          <img src="image/DT2.png" alt="Visualization simulation">
+          <br>
+          <a class="jump-btn" href="https://play.unity.com/en/games/8d3668e0-5571-4aa9-be0b-1cf747a488f0/simulation-learning-lab" target="_blank">
+            ▶ Launch Unity Simulation
+          </a>
+        </div>
+      </section>
+
+      <section class="content-block">
+        <h2>Activated Partial Thromboplastin Time (APTT)</h2>
+        <div class="image-block">
+          <img src="image/DT3.png" alt="APTT simulation">
+          <br>
+          <a class="jump-btn" href="https://play.unity.com/en/games/8d3668e0-5571-4aa9-be0b-1cf747a488f0/simulation-learning-lab" target="_blank">
+            ▶ Launch Unity Simulation
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> My Project – All rights reserved.
+    </footer>
+  </div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
