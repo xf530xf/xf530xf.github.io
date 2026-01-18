@@ -174,41 +174,164 @@
       }
     }
 
-    /* ===== Document viewer styling (inherits your tokens) ===== */
-    .docbar{
+    /* ===== Book shelf ===== */
+    .shelf-toolbar{
       display:flex;
-      flex-wrap:wrap;
-      gap:12px;
+      gap:10px;
       align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top:14px;
       padding:12px;
       border:1px solid var(--border);
       border-radius:var(--radius);
       background:#fff;
-      margin-top:14px;
     }
-    .doclabel{
-      font-size:14px;
+    .shelf-note{
       color:var(--muted);
-      margin-right:6px;
+      font-size:14px;
+      margin:0;
     }
-    .docselect{
-      min-width:260px;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:#fff;
-      color:var(--text);
-      outline:none;
-    }
-    .doccontrols{
+    .shelf-search{
       display:flex;
-      flex-wrap:wrap;
-      gap:8px;
+      gap:10px;
       align-items:center;
       margin-left:auto;
     }
-    .docbtn{
-      appearance:none;
+    .search-input{
+      width:min(360px, 75vw);
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      outline:none;
+      background:#fff;
+      color:var(--text);
+    }
+
+    .shelf-grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+    @media (max-width: 1100px){
+      .shelf-grid{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px){
+      .shelf-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 420px){
+      .shelf-grid{ grid-template-columns:1fr; }
+    }
+
+    .book{
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:#fff;
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease;
+      display:flex;
+      flex-direction:column;
+      min-height:260px;
+    }
+    .book:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 26px rgba(0,0,0,0.10);
+    }
+    .cover{
+      position:relative;
+      background:linear-gradient(180deg, #f7f9ff, #ffffff);
+      padding:12px;
+      border-bottom:1px solid var(--border);
+      aspect-ratio: 3 / 4;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .cover canvas{
+      width:100%;
+      height:100%;
+      border-radius:12px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,0.06);
+    }
+    .badge{
+      position:absolute;
+      top:10px;
+      left:10px;
+      font-size:12px;
+      color:#fff;
+      background:var(--accent);
+      padding:6px 10px;
+      border-radius:999px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.12);
+    }
+
+    .book-body{
+      padding:12px 12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .book-title{
+      margin:0;
+      font-weight:700;
+      font-size:14px;
+      line-height:1.35;
+    }
+    .book-sub{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* ===== Modal reader ===== */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      z-index:999;
+    }
+    .modal.open{ display:block; }
+    .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+    }
+    .modal-panel{
+      position:relative;
+      width:min(1100px, 92vw);
+      height:min(86vh, 860px);
+      margin:6vh auto 0;
+      background:#fff;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,0.08);
+      box-shadow:0 20px 60px rgba(0,0,0,0.25);
+      display:flex;
+      flex-direction:column;
+    }
+    .modal-topbar{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 12px;
+      border-bottom:1px solid var(--border);
+      background:#fff;
+    }
+    .modal-title{
+      font-weight:750;
+      font-size:14px;
+      margin:0;
+      color:var(--text);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:46vw;
+    }
+    .modal-spacer{ flex:1; }
+    .iconbtn{
       border:1px solid var(--border);
       background:#fff;
       color:var(--text);
@@ -218,46 +341,54 @@
       font-size:14px;
       line-height:1;
     }
-    .docbtn:hover{ background:#f7f7f7; }
-    .doclink{ text-decoration:none; display:inline-flex; align-items:center; }
-    .docmeta{
-      font-size:14px;
+    .iconbtn:hover{ background:#f7f7f7; }
+
+    .readerbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      padding:10px 12px;
+      border-bottom:1px solid var(--border);
+      background:#fafafa;
+    }
+    .readerbar .meta{
       color:var(--muted);
+      font-size:14px;
       display:flex;
       align-items:center;
       gap:6px;
       padding:0 6px;
     }
-    .docpage{
-      width:70px;
+    .readerbar input{
+      width:72px;
       padding:8px 10px;
       border:1px solid var(--border);
       border-radius:10px;
       outline:none;
+      background:#fff;
     }
-
-    .docviewer{
-      margin-top:14px;
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      background:#fafafa;
-      padding:12px;
+    .reader{
+      flex:1;
       overflow:auto;
-      max-height:72vh;
+      background:#f3f3f3;
+      padding:14px;
     }
-    .doccanvas-wrap{
+    .reader-inner{
       display:flex;
       justify-content:center;
     }
-
-    /* Fullscreen polishing */
-    #viewerWrap:fullscreen{
-      background:#111;
-      padding:18px;
-    }
-    #viewerWrap:fullscreen canvas{
+    #pdfCanvas{
       background:#fff;
       border-radius:12px;
+      border:1px solid rgba(0,0,0,0.08);
+      box-shadow:0 10px 26px rgba(0,0,0,0.14);
+    }
+
+    @media (max-width: 520px){
+      .modal-title{ max-width:56vw; }
+      .readerbar{ gap:6px; }
+      .iconbtn{ padding:9px 10px; }
     }
   </style>
 </head>
@@ -294,56 +425,144 @@
     <!-- RIGHT CONTENT -->
     <div class="content">
       <main>
-        <h1>Project Report Overview</h1>
+        <h1>Section 1 · Project Overview</h1>
         <p style="color:var(--muted)">Treatment and workflow with histological kidney tissue affected by nephrocalcinosis.</p>
 
-        <!-- ===== Added: PDF/Document Viewer (keeps your original layout) ===== -->
         <section class="content-block">
-          <h2>Documents</h2>
+          <h2>Treatment and Work with Histological Kidney Tissue Affected by Nephrocalcinosis</h2>
+          <p>
+            The project documents a complete workflow for handling kidney tissue influenced by nephrocalcinosis — from fixation to microscopic assessment — focusing on preserving tissue integrity and diagnostic value throughout processing.
+          </p>
+        </section>
+
+        <section class="content-block">
+          <h2>Fixation</h2>
+          <p>
+            Tissue that is extracted from an organism must be immediately fixed to prevent damage caused by internal and external factors, such as the onset of putrefaction. Shown here is how the tissue was delivered, fully fixed, and prepared before macroscopic examination and assessment.
+          </p>
+          <div class="image-block">
+            <img src="image/2.png" alt="Fixation step image" class="rotate-90">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Macroscopic Assessment and Trimming</h2>
+          <p>
+            The tissue material is assessed for consistency, color, and size — this evaluation is part of the diagnostic process. The kidney tissue is sliced so that, under microscopy, relevant components can be observed in each section. The slices are oriented and placed in labeled cassettes, with detailed information systematically recorded.
+          </p>
+          <div class="image-block">
+            <img src="image/3.png" alt="Macroscopic assessment image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Feeding (Tissue Processing)</h2>
+          <p>
+            The tissue was processed using the <strong>SPIN TISSUE PROCESSOR STP10</strong>. This step prepares it for paraffin embedding. For successful embedding, tissue must become permeable to paraffin — achieved through formalin fixation, dehydration, clearing in xylene, and final paraffin impregnation.
+          </p>
+          <div class="image-block">
+            <img src="image/4.png" alt="Feeding process image" class="rotate--90">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Paraffin Embedding</h2>
+          <p>
+            Once permeable, tissue slices can be embedded in paraffin using the <strong>MEDITE TBS88 – Paraffin Embedding System</strong>. After the paraffin in the chamber has melted, a mold is selected based on tissue size, a small amount of paraffin is poured, and the tissue is properly oriented. The mold is then moved to a cold plate to accelerate solidification while pressing the tissue to ensure the surface adheres. The labeled cassette with ID is attached, and the entire mold is placed on a larger cold plate until fully solidified.
+          </p>
+          <div class="image-block">
+            <img src="image/5.png" alt="Paraffin embedding image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Sectioning</h2>
+          <p>
+            The finished paraffin blocks are trimmed to ensure that each section includes the full tissue surface. Trimming requirements vary per block. Various microtomes — manual or with water slides — are used. Precision and patience are essential for clean, even sections. For disease-affected samples, extra care is taken to avoid tearing and ensure complete component preservation. The sections are floated on a water bath, mounted on slides, and placed on a warming plate for adhesion.
+          </p>
+          <div class="image-block">
+            <img src="image/6.png" alt="Sectioning process image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Staining</h2>
+          <p>
+            To visualize tissue components under the microscope, an appropriate staining method is chosen. <strong>HE/HES</strong> is a common stain that differentiates layers and structures, providing clear contrast between various cell and tissue types.
+          </p>
+          <div class="image-block">
+            <img src="image/7.png" alt="Staining process image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Microscopic Assessment</h2>
+          <p>
+            During microscopic examination, normal histology is identified — including tissue architecture, cell types, and characteristic structures. Abnormal findings such as tissue damage, inflammatory or blood cells, and necrosis are also evaluated, as these indicate pathological changes absent in healthy tissue.
+          </p>
+          <div class="image-block">
+            <img src="image/8.png" alt="Microscopic assessment image">
+          </div>
+        </section>
+
+        <!-- ===== Book-style PDF shelf ===== -->
+        <section class="content-block">
+          <h2>Document Library</h2>
           <p style="color:var(--muted)">
-            Select a document to preview. Use the controls to navigate pages.
+            Browse the documents like a bookshelf. Click a cover to open the PDF reader.
           </p>
 
-          <div class="docbar">
-            <label class="doclabel" for="docSelect">Document</label>
-            <select id="docSelect" class="docselect"></select>
-
-            <div class="doccontrols">
-              <button id="prevPage" class="docbtn" type="button">Prev</button>
-              <button id="nextPage" class="docbtn" type="button">Next</button>
-
-              <span class="docmeta">
-                Page
-                <input id="pageNumber" class="docpage" type="number" min="1" value="1">
-                /
-                <span id="pageCount">–</span>
-              </span>
-
-              <button id="zoomOut" class="docbtn" type="button">−</button>
-              <button id="zoomIn" class="docbtn" type="button">+</button>
-              <button id="fitWidth" class="docbtn" type="button">Fit</button>
-
-              <button id="fullscreen" class="docbtn" type="button">Full screen</button>
-              <a id="downloadLink" class="docbtn doclink" href="#" download>Download</a>
+          <div class="shelf-toolbar">
+            <p class="shelf-note">Tip: Put PDFs under <strong>./docs/</strong>. Word files should be converted to PDF for paging.</p>
+            <div class="shelf-search">
+              <input id="searchInput" class="search-input" type="search" placeholder="Search documents by name...">
             </div>
           </div>
 
-          <div class="docviewer" id="viewerWrap">
-            <div class="doccanvas-wrap">
-              <canvas id="pdfCanvas"></canvas>
-            </div>
-          </div>
-
-          <p style="margin-top:10px;color:var(--muted);font-size:14px">
-            Note: Place your PDF files under <strong>./docs/</strong>. For Word documents, convert to PDF for the best
-            paging experience.
-          </p>
+          <div id="shelfGrid" class="shelf-grid"></div>
         </section>
       </main>
 
       <footer>
         © <span id="year"></span> My Project – All rights reserved.
       </footer>
+    </div>
+  </div>
+
+  <!-- ===== Modal Reader ===== -->
+  <div id="pdfModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="1"></div>
+
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-label="PDF reader">
+      <div class="modal-topbar">
+        <p id="modalTitle" class="modal-title">Document</p>
+        <div class="modal-spacer"></div>
+        <a id="downloadLink" class="iconbtn" href="#" download>Download</a>
+        <button id="closeModal" class="iconbtn" type="button">Close</button>
+      </div>
+
+      <div class="readerbar">
+        <button id="prevPage" class="iconbtn" type="button">Prev</button>
+        <button id="nextPage" class="iconbtn" type="button">Next</button>
+
+        <span class="meta">
+          Page
+          <input id="pageNumber" type="number" min="1" value="1">
+          /
+          <span id="pageCount">–</span>
+        </span>
+
+        <button id="zoomOut" class="iconbtn" type="button">−</button>
+        <button id="zoomIn" class="iconbtn" type="button">+</button>
+        <button id="fitWidth" class="iconbtn" type="button">Fit</button>
+        <button id="fullscreen" class="iconbtn" type="button">Full screen</button>
+      </div>
+
+      <div class="reader" id="viewerWrap">
+        <div class="reader-inner">
+          <canvas id="pdfCanvas"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -355,15 +574,13 @@
   <!-- PDF.js (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.js"></script>
 
-  <!-- PDF viewer logic -->
   <script>
-    // ====== Configure your documents here ======
+    // ====== Configure your documents here (PDF only for best "book" + paging) ======
     // Put your PDFs under: ./docs/
-    // For Word: convert to PDF and place here (recommended).
     const DOCS = [
-      { title: "Experiment Report (PDF)", file: "./docs/Siluxin.pdf" },
-      { title: "Protocol – Nephrocalcinosis (PDF)", file: "./docs/YANZHA~1.pdf" },
-      { title: "Microscopy Notes (PDF)", file: "./docs/Summary Report - Wu Shengqi 20250828.pdf" }
+      { title: "Experiment Report", file: "docs/experiment-report.pdf", subtitle: "PDF" },
+      { title: "Protocol – Nephrocalcinosis", file: "docs/protocol.pdf", subtitle: "PDF" },
+      { title: "Microscopy Notes", file: "docs/microscopy-notes.pdf", subtitle: "PDF" }
     ];
 
     // ====== PDF.js setup ======
@@ -371,7 +588,17 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.min.js";
 
-    const docSelect = document.getElementById("docSelect");
+    // ====== Shelf DOM ======
+    const shelfGrid = document.getElementById("shelfGrid");
+    const searchInput = document.getElementById("searchInput");
+
+    // ====== Modal DOM ======
+    const modal = document.getElementById("pdfModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const closeModalBtn = document.getElementById("closeModal");
+    const downloadLink = document.getElementById("downloadLink");
+
+    const viewerWrap = document.getElementById("viewerWrap");
     const pdfCanvas = document.getElementById("pdfCanvas");
     const ctx = pdfCanvas.getContext("2d");
 
@@ -384,71 +611,39 @@
 
     const pageNumberInput = document.getElementById("pageNumber");
     const pageCountSpan = document.getElementById("pageCount");
-    const downloadLink = document.getElementById("downloadLink");
-    const viewerWrap = document.getElementById("viewerWrap");
 
     let pdfDoc = null;
     let pageNum = 1;
     let scale = 1.15;
     let rendering = false;
     let pendingPage = null;
+    let activeIndex = -1;
 
-    function populateDropdown() {
-      DOCS.forEach((d, i) => {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = d.title;
-        docSelect.appendChild(opt);
-      });
+    // ====== Utilities ======
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[m]));
     }
 
-    async function loadDocument(index) {
-      const doc = DOCS[index];
-      if (!doc) return;
-
-      downloadLink.href = doc.file;
-
-      pdfDoc = await pdfjsLib.getDocument(doc.file).promise;
-      pageNum = 1;
-
-      pageCountSpan.textContent = String(pdfDoc.numPages);
-      pageNumberInput.max = String(pdfDoc.numPages);
-      pageNumberInput.value = "1";
-
-      await renderPage(pageNum);
-      // Optional: fit width on first load for a nicer default
-      fitToWidth();
+    function openModal() {
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
     }
 
-    async function renderPage(num) {
-      rendering = true;
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      // Optional: release pdfDoc to reduce memory
+      pdfDoc = null;
+      ctx.clearRect(0, 0, pdfCanvas.width, pdfCanvas.height);
+    }
 
-      const page = await pdfDoc.getPage(num);
-
-      // Build viewport
-      const viewport = page.getViewport({ scale });
-
-      // Resize canvas
-      const outputScale = window.devicePixelRatio || 1;
-      pdfCanvas.width = Math.floor(viewport.width * outputScale);
-      pdfCanvas.height = Math.floor(viewport.height * outputScale);
-      pdfCanvas.style.width = Math.floor(viewport.width) + "px";
-      pdfCanvas.style.height = Math.floor(viewport.height) + "px";
-
-      const transform = outputScale !== 1
-        ? [outputScale, 0, 0, outputScale, 0, 0]
-        : null;
-
-      const renderContext = { canvasContext: ctx, viewport, transform };
-      await page.render(renderContext).promise;
-
-      rendering = false;
-
-      if (pendingPage !== null) {
-        const p = pendingPage;
-        pendingPage = null;
-        await renderPage(p);
-      }
+    function clampPage(n) {
+      if (!pdfDoc) return 1;
+      return Math.min(Math.max(1, n), pdfDoc.numPages);
     }
 
     function queueRenderPage(num) {
@@ -456,9 +651,26 @@
       else renderPage(num);
     }
 
-    function clampPage(n) {
-      if (!pdfDoc) return 1;
-      return Math.min(Math.max(1, n), pdfDoc.numPages);
+    async function renderPage(num) {
+      rendering = true;
+      const page = await pdfDoc.getPage(num);
+      const viewport = page.getViewport({ scale });
+
+      const outputScale = window.devicePixelRatio || 1;
+      pdfCanvas.width = Math.floor(viewport.width * outputScale);
+      pdfCanvas.height = Math.floor(viewport.height * outputScale);
+      pdfCanvas.style.width = Math.floor(viewport.width) + "px";
+      pdfCanvas.style.height = Math.floor(viewport.height) + "px";
+
+      const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+      await page.render({ canvasContext: ctx, viewport, transform }).promise;
+
+      rendering = false;
+      if (pendingPage !== null) {
+        const p = pendingPage;
+        pendingPage = null;
+        await renderPage(p);
+      }
     }
 
     function goToPage(n) {
@@ -470,51 +682,177 @@
 
     function fitToWidth() {
       if (!pdfDoc) return;
-
       pdfDoc.getPage(pageNum).then(page => {
-        const wrapWidth = viewerWrap.clientWidth - 24; // padding buffer
+        const wrapWidth = viewerWrap.clientWidth - 28;
         const unscaled = page.getViewport({ scale: 1 });
-
-        // Compute scale to fit width, clamp to sensible bounds
         scale = Math.max(0.5, Math.min(3.0, wrapWidth / unscaled.width));
         queueRenderPage(pageNum);
       });
     }
 
-    // ====== Events ======
-    docSelect.addEventListener("change", () => loadDocument(Number(docSelect.value)));
+    // ====== Load doc into modal reader ======
+    async function loadIntoReader(index) {
+      const doc = DOCS[index];
+      if (!doc) return;
 
+      activeIndex = index;
+      modalTitle.textContent = doc.title;
+      downloadLink.href = doc.file;
+
+      openModal();
+
+      pdfDoc = await pdfjsLib.getDocument(doc.file).promise;
+      pageNum = 1;
+
+      pageCountSpan.textContent = String(pdfDoc.numPages);
+      pageNumberInput.max = String(pdfDoc.numPages);
+      pageNumberInput.value = "1";
+
+      await renderPage(pageNum);
+      fitToWidth();
+    }
+
+    // ====== Build shelf (covers) ======
+    function buildShelf(list) {
+      shelfGrid.innerHTML = "";
+
+      if (!list.length) {
+        shelfGrid.innerHTML = `<div style="grid-column:1/-1;color:var(--muted);padding:10px 2px;">
+          No documents found.
+        </div>`;
+        return;
+      }
+
+      list.forEach((doc, idx) => {
+        const card = document.createElement("div");
+        card.className = "book";
+        card.setAttribute("role", "button");
+        card.setAttribute("tabindex", "0");
+        card.dataset.index = String(doc.__index);
+
+        card.innerHTML = `
+          <div class="cover">
+            <span class="badge">PDF</span>
+            <canvas id="cover-${doc.__index}" aria-label="Cover preview"></canvas>
+          </div>
+          <div class="book-body">
+            <p class="book-title">${escapeHtml(doc.title)}</p>
+            <p class="book-sub">${escapeHtml(doc.subtitle || "Document")}</p>
+          </div>
+        `;
+
+        card.addEventListener("click", () => loadIntoReader(doc.__index));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            loadIntoReader(doc.__index);
+          }
+        });
+
+        shelfGrid.appendChild(card);
+
+        // Render first-page thumbnail into the cover canvas
+        renderCoverThumbnail(doc, `cover-${doc.__index}`).catch(() => {
+          // If thumbnail fails (e.g., file not found), keep empty
+        });
+      });
+    }
+
+    async function renderCoverThumbnail(doc, canvasId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const cctx = canvas.getContext("2d");
+
+      // Load just for thumbnail (separate task)
+      const thumbPdf = await pdfjsLib.getDocument(doc.file).promise;
+      const page = await thumbPdf.getPage(1);
+
+      // We want a "book cover" look: fill the canvas area
+      const targetW = 360;
+      const targetH = 480;
+
+      canvas.width = targetW * (window.devicePixelRatio || 1);
+      canvas.height = targetH * (window.devicePixelRatio || 1);
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+
+      const dpr = window.devicePixelRatio || 1;
+      cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Compute scale to fit inside target box
+      const unscaled = page.getViewport({ scale: 1 });
+      const scaleFit = Math.min(targetW / unscaled.width, targetH / unscaled.height);
+      const viewport = page.getViewport({ scale: scaleFit });
+
+      // Clear & center
+      cctx.clearRect(0, 0, targetW, targetH);
+      const offsetX = (targetW - viewport.width) / 2;
+      const offsetY = (targetH - viewport.height) / 2;
+
+      // White page background
+      cctx.fillStyle = "#fff";
+      cctx.fillRect(0, 0, targetW, targetH);
+
+      await page.render({
+        canvasContext: cctx,
+        viewport,
+        transform: [1, 0, 0, 1, offsetX, offsetY]
+      }).promise;
+
+      // Hint of "spine" shadow for book feel
+      cctx.fillStyle = "rgba(0,0,0,0.06)";
+      cctx.fillRect(0, 0, 10, targetH);
+
+      // Release
+      thumbPdf.destroy();
+    }
+
+    // ====== Search ======
+    function applySearch() {
+      const q = (searchInput.value || "").trim().toLowerCase();
+      const filtered = DOCS
+        .map((d, i) => ({ ...d, __index: i }))
+        .filter(d => d.title.toLowerCase().includes(q));
+      buildShelf(filtered);
+    }
+
+    searchInput.addEventListener("input", applySearch);
+
+    // ====== Reader controls ======
     prevPageBtn.addEventListener("click", () => goToPage(pageNum - 1));
     nextPageBtn.addEventListener("click", () => goToPage(pageNum + 1));
-
     pageNumberInput.addEventListener("change", () => goToPage(Number(pageNumberInput.value)));
 
-    zoomOutBtn.addEventListener("click", () => {
-      scale = Math.max(0.5, scale - 0.1);
-      queueRenderPage(pageNum);
-    });
-    zoomInBtn.addEventListener("click", () => {
-      scale = Math.min(3.0, scale + 0.1);
-      queueRenderPage(pageNum);
-    });
+    zoomOutBtn.addEventListener("click", () => { scale = Math.max(0.5, scale - 0.1); queueRenderPage(pageNum); });
+    zoomInBtn.addEventListener("click", () => { scale = Math.min(3.0, scale + 0.1); queueRenderPage(pageNum); });
     fitWidthBtn.addEventListener("click", fitToWidth);
 
     fullscreenBtn.addEventListener("click", async () => {
+      const panel = document.querySelector(".modal-panel");
       if (!document.fullscreenElement) {
-        await viewerWrap.requestFullscreen();
+        await panel.requestFullscreen();
         setTimeout(fitToWidth, 150);
       } else {
         await document.exitFullscreen();
       }
     });
 
+    // ====== Modal closing ======
+    closeModalBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      const t = e.target;
+      if (t && t.dataset && t.dataset.close === "1") closeModal();
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+    });
     window.addEventListener("resize", () => {
-      if (pdfDoc) fitToWidth();
+      if (modal.classList.contains("open") && pdfDoc) fitToWidth();
     });
 
     // ====== Init ======
-    populateDropdown();
-    loadDocument(0);
+    // Add internal indices to DOCS for stable references
+    applySearch();
   </script>
 </body>
 </html>
