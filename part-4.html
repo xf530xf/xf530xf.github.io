@@ -353,7 +353,8 @@
   </script>
 
   <!-- PDF.js (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/legacy/build/pdf.min.js"></script>
+
 
   <!-- PDF viewer logic -->
 <script>
@@ -379,7 +380,8 @@
 
   // Worker
   pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.min.js";
+  "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/legacy/build/pdf.worker.min.js";
+
 
   const docSelect = document.getElementById("docSelect");
   const pdfCanvas = document.getElementById("pdfCanvas");
