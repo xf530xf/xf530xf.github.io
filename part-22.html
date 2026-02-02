@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ABX Pentra XL 80 · User Guide</title>
+  <meta name="description" content="Student-oriented user guide for operating the ABX Pentra XL 80 hematology analyzer for CBC and 5-part differential (5-DIFF)." />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#444444;
+      --border:#dddddd;
+      --accent:#004aad;
+      --radius:14px;
+
+      /* Sidebar (unified layout) */
+      --sidebar-w: 300px;
+      --sidebar-bg: #1f2328;
+      --sidebar-bg-2: #14171b;
+      --sidebar-text: rgba(255,255,255,0.92);
+      --sidebar-muted: rgba(255,255,255,0.62);
+      --sidebar-active: rgba(255,255,255,0.12);
+      --sidebar-hover: rgba(255,255,255,0.08);
+      --sidebar-divider: rgba(255,255,255,0.10);
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Layout */
+    .layout{display:flex;min-height:100vh;}
+
+    /* Sidebar */
+    .sidebar{
+      width:var(--sidebar-w);
+      background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg-2));
+      color:var(--sidebar-text);
+      position:sticky;top:0;
+      height:100vh;overflow:auto;
+      border-right:1px solid rgba(0,0,0,0.15);
+    }
+    .sidebar-header{
+      padding:22px 20px 14px;
+      border-bottom:1px solid var(--sidebar-divider);
+    }
+    .sidebar-title{
+      font-size:22px;font-weight:750;margin:0;letter-spacing:.2px;
+    }
+    .sidebar-subtitle{
+      margin:6px 0 0 0;
+      color:var(--sidebar-muted);
+      font-size:13px;
+    }
+    .side-nav{padding:10px 0;}
+    .side-nav a{
+      display:flex;align-items:center;gap:12px;
+      padding:14px 18px;
+      color:var(--sidebar-muted);
+      text-decoration:none;
+      border-top:1px solid rgba(255,255,255,0.03);
+      border-bottom:1px solid rgba(0,0,0,0.12);
+      transition:background .15s,color .15s;
+    }
+    .side-nav a:hover{
+      background:var(--sidebar-hover);
+      color:var(--sidebar-text);
+      text-decoration:none;
+    }
+    .side-nav a.active{
+      background:var(--sidebar-active);
+      color:var(--sidebar-text);
+    }
+    .nav-ico{
+      width:26px;height:26px;
+      display:inline-grid;place-items:center;
+      border-radius:8px;
+      color:var(--sidebar-muted);
+      flex:0 0 26px;
+      font-size:16px;
+    }
+    .side-nav a.active .nav-ico{color:#ff6b8a;}
+    .nav-text{font-size:15px;letter-spacing:.2px;}
+
+    /* Content */
+    .content{flex:1;background:var(--bg);}
+    main{max-width:1100px;margin:0 auto;padding:30px 16px 60px;}
+    h1{font-size:28px;margin:0 0 6px 0;color:var(--accent);}
+    .subtitle{color:var(--muted);margin:0 0 18px 0;}
+
+    section.content-block{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:24px 20px;
+      margin-top:22px;
+    }
+    h2{margin:0 0 10px 0;font-size:22px;color:var(--accent);}
+    h3{margin:18px 0 8px 0;font-size:18px;color:var(--text);}
+    p{margin:10px 0;}
+    ul{margin:10px 0 10px 20px;}
+    ol{margin:10px 0 10px 22px;}
+
+    .note{
+      border-left:4px solid var(--accent);
+      background:#f6f8ff;
+      padding:10px 12px;
+      border-radius:10px;
+      margin-top:12px;
+      color:var(--text);
+    }
+
+    .figure{
+      margin-top:14px;
+      padding:12px;
+      border:1px dashed var(--border);
+      border-radius:var(--radius);
+      color:var(--muted);
+      background:#fafafa;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      text-align:center;
+      padding:18px 0;
+      font-size:14px;
+      margin-top:40px;
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .layout{flex-direction:column;}
+      .sidebar{width:100%;height:auto;position:relative;}
+      .side-nav{display:grid;grid-template-columns:1fr 1fr;}
+      .side-nav a{border:none;border-top:1px solid var(--sidebar-divider);}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">📁 My Project</h1>
+        <p class="sidebar-subtitle">ABX Pentra XL 80 · Operating Guide</p>
+      </div>
+
+      <nav class="side-nav">
+        <a href="./index.html">
+          <span class="nav-ico">↩️</span>
+          <span class="nav-text">Back to Index</span>
+        </a>
+        <a href="./part-2.html">
+          <span class="nav-ico">🏠</span>
+          <span class="nav-text">Digital Twin</span>
+        </a>
+        <a href="./part-21.html" class="active">
+          <span class="nav-ico">🩸</span>
+          <span class="nav-text">Immunology Course</span>
+        </a>
+        <a href="./part-22.html">
+          <span class="nav-ico">📄</span>
+          <span class="nav-text">ABX Pentra XL80 User Guide</span>
+        </a>
+        <a href="./part-23.html">
+          <span class="nav-ico">👤</span>
+          <span class="nav-text">Histology Course</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <div class="content">
+      <main>
+        <h1>ABX Pentra XL 80 · Student User Guide</h1>
+        <p class="subtitle">How to start the instrument, register samples, run CBC + 5-part differential (5-DIFF), review results, validate, and shut down.</p>
+
+        <section class="content-block">
+          <h2>Purpose</h2>
+          <p>
+            This guide ensures that students gain a clear, practical understanding of how to operate the ABX Pentra XL 80
+            hematology analyzer to perform complete blood count (CBC), cell counting, and 5-part differential (5-DIFF) analysis.
+          </p>
+        </section>
+
+        <section class="content-block">
+          <h2>Scope</h2>
+          <p>This guide covers the following tasks:</p>
+          <ol>
+            <li>Instrument start-up</li>
+            <li>Patient and sample registration (patient ID)</li>
+            <li>Assigning samples and verifying reagents</li>
+            <li>Results review
+              <ul>
+                <li>Flags</li>
+                <li>Validation</li>
+              </ul>
+            </li>
+            <li>Instrument shutdown</li>
+          </ol>
+        </section>
+
+        <section class="content-block">
+          <h2>Background</h2>
+          <p>
+            The ABX Pentra XL 80 is a fully automated hematology analyzer designed for clinical laboratory blood testing.
+            It supports high-throughput and accurate hematology measurements and reports a broad panel of parameters, including
+            hemoglobin and 5-DIFF (five-part leukocyte differential).
+          </p>
+          <p>
+            The analytical workflow relies primarily on differences in blood cell <strong>size</strong> and <strong>complexity</strong>.
+            It separates erythrocytes (RBC), platelets (PLT), and leukocytes (WBC) using <strong>electrical impedance</strong>.
+            Leukocyte sub-populations are further differentiated using <strong>light scatter</strong> (related to nuclear and cellular morphology),
+            and hemoglobin is measured using <strong>spectrophotometry</strong>.
+          </p>
+
+          <div class="figure">Figure placeholder: ABX Pentra XL 80 instrument overview (insert your image if available).</div>
+        </section>
+
+        <section class="content-block">
+          <h2>Analytical Principles</h2>
+
+          <h3>1) Electrical impedance (cell counting by volume)</h3>
+          <p>
+            The sample is diluted with an electrolyte diluent and aspirated through a precisely sized aperture.
+            Two electrodes maintain a constant electrical current across the aperture. When each cell passes through,
+            it temporarily increases electrical resistance (impedance). The measured pulse amplitude is proportional to cell volume:
+            larger cells generate larger pulses; smaller cells generate smaller pulses.
+          </p>
+          <div class="figure">Figure placeholder: Electrical impedance principle (aperture + electrodes).</div>
+
+          <h3>2) Light scatter (flow cytometry concept)</h3>
+          <p>
+            In a flow-based optical measurement, cells pass through an illuminated region (lamp/laser). The interaction between light and cells
+            produces scatter signals detected at defined angles. <strong>Forward scatter (FSC)</strong> correlates primarily with cell size, while
+            <strong>side scatter (SSC)</strong> correlates with internal complexity and granularity. These signals support separation of leukocyte populations
+            when combined with other measurements.
+          </p>
+
+          <h3>3) Spectrophotometry (hemoglobin measurement)</h3>
+          <p>
+            Hemoglobin is quantified using spectrophotometry in a dedicated measurement chamber. In practice, the method converts hemoglobin into
+            a measurable chromogenic form, and optical absorbance is used to estimate concentration.
+          </p>
+
+          <div class="note">
+            Tip: When explaining the system in reports or presentations, emphasize the mapping:
+            impedance → volume-based counting; scatter → morphology/complexity; spectrophotometry → hemoglobin via absorbance.
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Analyzer Chambers and 5-DIFF Output</h2>
+
+          <h3>Analyzer chambers</h3>
+          <ul>
+            <li><strong>Hemoglobin chamber</strong>: spectrophotometry-based measurement.</li>
+            <li><strong>RBC/PLT counting chamber</strong>: impedance-based counting.</li>
+            <li><strong>WBC/BASO counting chamber</strong>: impedance-based counting (including basophils channel logic).</li>
+            <li><strong>LMNE dilution/DIFF chamber</strong>: combines impedance, light scatter, and cytochemical reactions to perform differential classification.</li>
+          </ul>
+
+          <h3>Interpreting a 5-DIFF (LMNE matrix)</h3>
+          <p>
+            The 5-DIFF result is displayed both as percentages and as an LMNE matrix plot.
+            The matrix typically places a volume-related feature on one axis and a complexity/absorbance-related feature on the other,
+            allowing clear separation of lymphocytes, monocytes, neutrophils, and eosinophils.
+            Basophils are usually presented separately due to their relatively low proportion in peripheral blood.
+          </p>
+
+          <div class="figure">Figure placeholder: LMNE matrix example (insert your plot screenshot).</div>
+        </section>
+
+        <section class="content-block">
+          <h2>Equipment and Reagents</h2>
+          <ul>
+            <li><strong>Instrument</strong>: ABX Pentra XL 80</li>
+            <li><strong>Sample</strong>: EDTA whole blood</li>
+            <li><strong>Core reagents</strong>: ABX reagents (inside instrument), ABX Diluent (external), and waste container (external)</li>
+          </ul>
+          <div class="note">
+            Operational reminder: EDTA blood should ideally be analyzed within <strong>2 hours</strong> of collection for best result quality.
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Operating Procedure</h2>
+
+          <h3>1) Start up the instrument</h3>
+          <ol>
+            <li>Press the power button on the right side of the instrument.</li>
+            <li>Log in using your assigned username and password.</li>
+            <li>After login, you will see the software overview:
+              <ul>
+                <li><strong>Contextual toolbar</strong>: edit, cancel, print, validate actions.</li>
+                <li><strong>Generic toolbar</strong>: common functions such as Worklist, Reports, Alarms, Start Rack, and archived results.</li>
+                <li><strong>Main menu</strong>: quality control, logs, status, service, settings.</li>
+                <li><strong>Startup/Shutdown</strong> controls.</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3>2) Register the patient ID (sample entry)</h3>
+          <ol>
+            <li>Open <strong>Worklist</strong>.</li>
+            <li>Select <strong>Rack view</strong> to register a rack and its samples.</li>
+            <li>Enter the <strong>Rack Number</strong> using the instrument keyboard.</li>
+            <li>Select an available rack position and complete the required fields (as configured in your lab), e.g.:
+              <ul>
+                <li>Sample ID</li>
+                <li>Collection date</li>
+                <li>Patient ID</li>
+                <li>Patient name / first name</li>
+                <li>Date of birth / age</li>
+                <li>Gender</li>
+              </ul>
+            </li>
+            <li>Confirm (check/OK) to register the sample.</li>
+            <li>Repeat until all samples are registered.</li>
+          </ol>
+          <div class="note">
+            In typical student configurations, CBC and 5-DIFF are automatically ordered when patient/sample identification is entered,
+            so you do not need to manually select the 5-DIFF test.
+          </div>
+
+          <h3>3) Assign samples and verify reagents</h3>
+          <ol>
+            <li>Confirm that internal ABX reagents are loaded and within expiry. If out-of-date or missing, the <strong>Alarm</strong> indicator will highlight issues.</li>
+            <li>Check external <strong>ABX Diluent</strong> level and expiry date.</li>
+            <li>Check the <strong>Waste</strong> container is not full; empty it if needed according to lab procedures.</li>
+            <li>Load EDTA blood tubes into the rack (up to 10 positions), matching rack numbering and positions.</li>
+            <li>Place the rack into the instrument with the rack number facing you and sample tubes facing away (per standard loading orientation).</li>
+            <li>Press <strong>Start Rack</strong> to begin analysis.</li>
+          </ol>
+
+          <h3>4) Review results</h3>
+          <ol>
+            <li>Open <strong>Reports</strong> to view analyzed samples.</li>
+            <li>Results appear progressively as each sample completes.</li>
+            <li>Select a sample line to inspect details. The 5-DIFF result is typically shown in the lower section with both percentage values and the LMNE matrix.</li>
+            <li>Click the LMNE matrix to enlarge it for interpretation.</li>
+          </ol>
+
+          <h3>4.1) Flags</h3>
+          <p>
+            Flags indicate potential abnormalities or analytical concerns. If a parameter is outside expected limits or the pattern is atypical,
+            the system may display an alert icon (e.g., an exclamation mark) next to relevant values.
+          </p>
+
+          <h3>4.2) Validation</h3>
+          <ol>
+            <li>Return to the report list.</li>
+            <li>Select the samples to be validated.</li>
+            <li>Press <strong>Validate</strong> (as labeled in your interface) to confirm results.</li>
+          </ol>
+
+          <h3>5) Shut down the instrument</h3>
+          <ol>
+            <li>When analysis is complete, the rack will exit and become accessible from the right side—remove and clear it.</li>
+            <li>Return to the software overview (return/back).</li>
+            <li>Press the <strong>Quit</strong> icon in the lower-right corner of the software.</li>
+            <li>Use the physical power button on the right side of the instrument to switch off (per lab policy).</li>
+          </ol>
+        </section>
+
+        <section class="content-block">
+          <h2>Student Questions (Self-Check)</h2>
+          <ol>
+            <li>What are the three main blood cell types, and what are their roles in the body?</li>
+            <li>The ABX Pentra XL 80 uses multiple analytical principles. Briefly explain:
+              <ul>
+                <li>Electrical impedance</li>
+                <li>Light scatter</li>
+                <li>Spectrophotometry</li>
+              </ul>
+            </li>
+            <li>What is the purpose of performing CBC/cell counting and a 5-DIFF?</li>
+            <li>Why are multiple analytical principles needed to perform a reliable 5-DIFF?</li>
+            <li>How do you interpret a 5-DIFF plot (LMNE matrix)? What do the axes represent conceptually?</li>
+          </ol>
+        </section>
+
+        <section class="content-block">
+          <h2>References</h2>
+          <ol>
+            <li>HORIBA Medical. <em>ABX Pentra XL80 User Manual</em>. 2007.</li>
+            <li>Keohane EM, Otto CN, Walenga JM (eds.). <em>Rodak's Hematology: Clinical Principles and Applications</em>. 6th ed. Elsevier; 2020.</li>
+            <li>Nguyen TT, Ngo HT. Automatic White Blood Cell Classification Using Deep Learning Network. <em>IFMBE Proceedings</em>. 2022.</li>
+            <li>Nkrumah B, et al. Hemoglobin estimation by the HemoCue® portable hemoglobin photometer in a resource poor setting. <em>BMC Clin Pathol</em>. 2011;11:5.</li>
+            <li>Riedl J. <em>Challenges in hematology diagnostics</em>. 2014.</li>
+          </ol>
+        </section>
+      </main>
+
+      <footer>
+        © <span id="year"></span> My Project – All rights reserved.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

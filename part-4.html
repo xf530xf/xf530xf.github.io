@@ -1,69 +1,346 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>部分四 · 资源/下载</title>
-  <meta name="description" content="资源与下载中心">
+  <title>PDF Viewer · Docs</title>
+  <meta name="description" content="Preview PDFs stored in ./docs/ using the browser's built-in PDF viewer.">
+
   <style>
-  :root{
-    --bg:#0b0f14; --card:#0f1520; --muted:#9aa4b2; --text:#e6edf3;
-    --border:#1c2837; --accent:#7aa2f7; --shadow:0 10px 30px rgba(0,0,0,.35);
-    --radius:16px;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d121a 100%);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
-  a{color:inherit;text-decoration:none}
-  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(180%) blur(10px);background:color-mix(in srgb, #0b0f14 82%, transparent);border-bottom:1px solid var(--border)}
-  .wrap{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;gap:16px;align-items:center}
-  .brand{font-weight:700;letter-spacing:.2px}
-  .pillbar{display:flex;gap:8px;margin-left:0}
-  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:#0f1520;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);font-size:14px;color:var(--muted)}
-  .pill:hover{border-color:#24415f;color:var(--text)}
-  main{max-width:1100px;margin:0 auto;padding:28px 16px}
-  .hero{border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);background:radial-gradient(60% 120% at 10% -10%, rgba(122,162,247,.18), transparent 40%),radial-gradient(60% 120% at 90% -10%, rgba(166,218,149,.18), transparent 40%)}
-  .hero h1{margin:0 0 8px 0;font-size:28px;line-height:1.2}
-  .muted{color:var(--muted)}
-  .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px}
-  @media(min-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-  .card{border:1px solid var(--border);border-radius:14px;padding:18px;background:linear-gradient(180deg,#0f1520 0%,#0e1420 100%);box-shadow:var(--shadow);transition:transform .2s ease, border-color .2s ease}
-  .card:hover{transform:translateY(-2px);border-color:#284463}
-  .card h3{margin:0 0 8px 0;font-size:18px}
-  .card p{margin:0}
-  footer{border-top:1px solid var(--border);color:var(--muted);padding:22px 0;margin-top:28px}
-</style>
+    :root{
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#444444;
+      --border:#dddddd;
+      --accent:#004aad;
+      --radius:14px;
+
+      --sidebar-w:300px;
+      --sidebar-bg:#1f2328;
+      --sidebar-bg-2:#14171b;
+      --sidebar-text:rgba(255,255,255,.92);
+      --sidebar-muted:rgba(255,255,255,.62);
+      --sidebar-active:rgba(255,255,255,.12);
+      --sidebar-hover:rgba(255,255,255,.08);
+      --sidebar-divider:rgba(255,255,255,.10);
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .layout{display:flex;min-height:100vh;}
+
+    .sidebar{
+      width:var(--sidebar-w);
+      background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg-2));
+      color:var(--sidebar-text);
+      position:sticky;top:0;height:100vh;overflow:auto;
+      border-right:1px solid rgba(0,0,0,.15);
+    }
+    .sidebar-header{
+      padding:22px 20px 14px;
+      border-bottom:1px solid var(--sidebar-divider);
+    }
+    .sidebar-title{font-size:22px;font-weight:750;margin:0;letter-spacing:.2px;}
+    .sidebar-subtitle{margin:6px 0 0 0;color:var(--sidebar-muted);font-size:13px;}
+
+    .side-nav{padding:10px 0;}
+    .side-nav a{
+      display:flex;align-items:center;gap:12px;
+      padding:14px 18px;color:var(--sidebar-muted);text-decoration:none;
+      border-top:1px solid rgba(255,255,255,0.03);
+      border-bottom:1px solid rgba(0,0,0,0.12);
+      transition:background .15s,color .15s;
+    }
+    .side-nav a:hover{background:var(--sidebar-hover);color:var(--sidebar-text);text-decoration:none;}
+    .side-nav a.active{background:var(--sidebar-active);color:var(--sidebar-text);}
+    .nav-ico{
+      width:26px;height:26px;display:inline-grid;place-items:center;
+      border-radius:8px;color:var(--sidebar-muted);flex:0 0 26px;font-size:16px;
+    }
+    .side-nav a.active .nav-ico{color:#ff6b8a;}
+    .nav-text{font-size:15px;letter-spacing:.2px;}
+
+    .content{flex:1;background:var(--bg);}
+    main{max-width:1100px;margin:0 auto;padding:30px 16px 60px;}
+    h1{font-size:28px;margin-top:0;color:var(--accent);}
+    h2{margin-top:28px;font-size:22px;color:var(--accent);}
+    p{margin:10px 0;}
+
+    section.content-block{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:24px 20px;
+      margin-top:22px;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      text-align:center;
+      padding:18px 0;
+      font-size:14px;
+      margin-top:40px;
+    }
+
+    @media (max-width: 900px){
+      .layout{flex-direction:column;}
+      .sidebar{width:100%;height:auto;position:relative;}
+      .side-nav{display:grid;grid-template-columns:1fr 1fr;}
+      .side-nav a{border:none;border-top:1px solid var(--sidebar-divider);}
+    }
+
+    /* Viewer UI */
+    .docbar{
+      display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+      padding:12px;border:1px solid var(--border);border-radius:var(--radius);background:#fff;
+      margin-top:14px;
+    }
+    .doclabel{font-size:14px;color:var(--muted);margin-right:6px;}
+    .docselect{
+      min-width:260px;
+      padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+      background:#fff;color:var(--text);outline:none;
+    }
+    .doccontrols{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-left:auto;}
+    .docbtn{
+      appearance:none;border:1px solid var(--border);background:#fff;color:var(--text);
+      padding:9px 12px;border-radius:12px;cursor:pointer;font-size:14px;line-height:1;
+    }
+    .docbtn:hover{background:#f7f7f7;}
+    .doclink{display:inline-flex;align-items:center;text-decoration:none;}
+
+    .docmeta{
+      font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px;padding:0 6px;
+    }
+    .docpage{
+      width:90px;
+      padding:8px 10px;border:1px solid var(--border);border-radius:10px;outline:none;
+    }
+
+    .viewer{
+      margin-top:14px;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fafafa;
+      overflow:hidden;
+      height:min(72vh, 820px);
+    }
+    iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      background:#fff;
+    }
+
+    .errorbox{
+      display:none;
+      margin-top:12px;
+      padding:12px;
+      border:1px solid #f1c1c1;
+      border-radius:12px;
+      background:#fff5f5;
+      color:#8a1f1f;
+      font-size:14px;
+      white-space:pre-wrap;
+    }
+
+    code{background:#f2f2f2;padding:2px 6px;border-radius:8px;}
+  </style>
 </head>
+
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">📁 My Project</div>
-      <nav class="pillbar">
-        <a class="pill" href="./index.html">Back to Index</a>
-        <a class="pill" href="./part-1.html">Section 1</a>
-        <a class="pill" href="./part-2.html">Section 2</a>
-        <a class="pill" href="./part-3.html">Section 3</a>
-        <a class="pill" href="./part-4.html">Section 4</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">📁 My Project</h1>
+        <p class="sidebar-subtitle">Department of Biological Sciences Ålesund</p>
+      </div>
+
+      <nav class="side-nav">
+        <a href="./index.html">
+          <span class="nav-ico">↩️</span>
+          <span class="nav-text">Back to Index</span>
+        </a>
+        <a href="./part-1.html" class="active">
+          <span class="nav-ico">📄</span>
+          <span class="nav-text">Documents</span>
+        </a>
+        <a href="./part-3.html">
+          <span class="nav-ico">✍️</span>
+          <span class="nav-text">Activity</span>
+        </a>
+        <a href="./part-4.html">
+          <span class="nav-ico">🧪</span>
+          <span class="nav-text">Experiment Report</span>
+        </a>
       </nav>
+    </aside>
+
+    <div class="content">
+      <main>
+        <h1>Experiment Report</h1>
+        <p style="color:var(--muted)">
+          This page uses the browser’s built-in PDF viewer via <code>&lt;iframe&gt;</code>. It is typically the most reliable approach on GitHub Pages.
+        </p>
+
+        <section class="content-block">
+          <h2>Documents</h2>
+          <p style="color:var(--muted)">
+            Select a PDF under <code>./docs/</code>. You can also open it in a new tab or download it directly.
+          </p>
+
+          <div class="docbar">
+            <label class="doclabel" for="docSelect">Document</label>
+            <select id="docSelect" class="docselect"></select>
+
+            <div class="doccontrols">
+              <span class="docmeta">
+                Page
+                <input id="pageNumber" class="docpage" type="number" min="1" value="1">
+              </span>
+
+              <button id="goPage" class="docbtn" type="button">Go</button>
+              <button id="reload" class="docbtn" type="button">Reload</button>
+
+              <a id="openTab" class="docbtn doclink" href="#" target="_blank" rel="noopener">Open</a>
+              <a id="download" class="docbtn doclink" href="#" download>Download</a>
+            </div>
+          </div>
+
+          <div id="err" class="errorbox"></div>
+
+          <div class="viewer">
+            <iframe id="pdfFrame" title="PDF preview"></iframe>
+          </div>
+
+          <p style="margin-top:10px;color:var(--muted);font-size:14px">
+            Notes:
+            <br>1) Put PDFs under <strong>./docs/</strong>.
+            <br>2) GitHub Pages is case-sensitive (e.g., <code>YANZHA.PDF</code> ≠ <code>yanzha.pdf</code>).
+            <br>3) If a PDF still does not render, try clicking <strong>Open</strong> to verify the direct URL works.
+          </p>
+        </section>
+      </main>
+
+      <footer>
+        © <span id="year"></span> My Project – All rights reserved.
+      </footer>
     </div>
-  </header>
+  </div>
 
-  
-  <main>
-    <section class="hero">
-      <h1>部分四 · 资源/下载</h1>
-      <p class="muted">安装包、脚本、数据集、发布日志与许可证。</p>
-    </section>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    <section class="card" style="margin-top:18px">
-      <h3>示例内容</h3>
-      <p>这里是占位文本。把你的真实内容替换进来；或告诉我要从哪份文档里自动填充。</p>
-    </section>
-  </main>
+    // Put your PDFs here (paths relative to this HTML file)
+    const DOCS = [
+      { title: "BUCHENYANG",    file: "docs/BUCHENYANG.pdf" },
+      { title: "MeishanLiu",    file: "docs/MeishanLiu.pdf" },
+      { title: "RuoqiZhao",     file: "docs/RuoqiZhao.pdf" },
+      { title: "Siluxin",       file: "docs/Siluxin.pdf" },
+      { title: "WuShengqi",     file: "docs/WuShengqi.pdf" },
+      { title: "YANZHA",        file: "docs/YANZHA.PDF" },
+      { title: "YingTengchuan", file: "docs/YingTengchuan.pdf" },
+      { title: "review",        file: "docs/review.pdf" }
+    ];
 
-  <footer>
-    <div class="wrap">© <span id="year"></span> 我的项目</div>
-  </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    const docSelect = document.getElementById("docSelect");
+    const pageInput = document.getElementById("pageNumber");
+    const goPageBtn = document.getElementById("goPage");
+    const reloadBtn = document.getElementById("reload");
+
+    const pdfFrame = document.getElementById("pdfFrame");
+    const openTab = document.getElementById("openTab");
+    const download = document.getElementById("download");
+
+    const err = document.getElementById("err");
+
+    function showError(message) {
+      err.style.display = "block";
+      err.textContent = message;
+    }
+    function clearError() {
+      err.style.display = "none";
+      err.textContent = "";
+    }
+
+    function populateDropdown() {
+      docSelect.innerHTML = "";
+      DOCS.forEach((d, i) => {
+        const opt = document.createElement("option");
+        opt.value = String(i);
+        opt.textContent = d.title;
+        docSelect.appendChild(opt);
+      });
+    }
+
+    // Build a URL like: docs/file.pdf#page=3
+    function buildPdfUrl(file, page) {
+      const p = Math.max(1, Number(page) || 1);
+      // Most built-in viewers support #page=
+      return `${file}#page=${p}`;
+    }
+
+    function loadSelected(page = 1) {
+      clearError();
+
+      const doc = DOCS[Number(docSelect.value)];
+      if (!doc) return;
+
+      const url = buildPdfUrl(doc.file, page);
+      pdfFrame.src = url;
+
+      // Set Open/Download links without hash
+      openTab.href = doc.file;
+      download.href = doc.file;
+
+      // Basic sanity hint: if user typed page, keep it.
+      pageInput.value = String(Math.max(1, Number(page) || 1));
+    }
+
+    // Events
+    docSelect.addEventListener("change", () => loadSelected(Number(pageInput.value) || 1));
+    goPageBtn.addEventListener("click", () => loadSelected(Number(pageInput.value) || 1));
+    pageInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") loadSelected(Number(pageInput.value) || 1);
+    });
+
+    // Force reload iframe (useful if GH Pages cached something)
+    reloadBtn.addEventListener("click", () => {
+      const src = pdfFrame.src;
+      // Cache-bust without breaking relative paths
+      const cacheBust = (src.includes("?") ? "&" : "?") + "v=" + Date.now();
+      pdfFrame.src = src + cacheBust;
+    });
+
+    // Init
+    populateDropdown();
+    docSelect.value = "0";
+    loadSelected(1);
+
+    // Optional: allow URL param like ?doc=YANZHA&page=2
+    (function loadFromQuery() {
+      const params = new URLSearchParams(location.search);
+      const docName = params.get("doc");
+      const page = Number(params.get("page") || "1");
+      if (!docName) return;
+
+      const idx = DOCS.findIndex(d => d.title.toLowerCase() === docName.toLowerCase());
+      if (idx >= 0) {
+        docSelect.value = String(idx);
+        loadSelected(page);
+      } else {
+        showError(`Document not found in DOCS list: ${docName}\nCheck the title or update the DOCS array.`);
+      }
+    })();
+  </script>
 </body>
 </html>
