@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Activity</title>
+  <title>Section· Project Overview</title>
   <meta name="description" content="Overview, milestones, and responsibilities for the histological kidney tissue project.">
 
   <style>
@@ -173,6 +173,30 @@
         border-top:1px solid var(--sidebar-divider);
       }
     }
+
+    /* Button styles for navigation */
+    .button-group {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .button-group a {
+      padding: 12px 20px;
+      background-color: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      display: inline-block;
+    }
+
+    .button-group a:hover {
+      background-color: #002b6d;
+    }
+
   </style>
 </head>
 
@@ -182,68 +206,80 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <h1 class="sidebar-title">📁 My Project</h1>
-        <p class="sidebar-subtitle">Department of Biological Sciences Ålesund</p>
+        <p class="sidebar-subtitle">Histology workflow · Nephrocalcinosis</p>
       </div>
-
       <nav class="side-nav">
         <a href="./index.html">
           <span class="nav-ico">↩️</span>
           <span class="nav-text">Back to Index</span>
         </a>
-        <a href="./part-1.html" class="active">
+        <a href="./part-2.html">
           <span class="nav-ico">🏠</span>
-          <span class="nav-text">Photo</span>
+          <span class="nav-text">Digital Twin</span>
         </a>
-        <a href="./part-3.html">
-          <span class="nav-ico">✍️</span>
-          <span class="nav-text">Activity</span>
+        <a href="./part-21.html" class="active">
+          <span class="nav-ico">🩸</span>
+          <span class="nav-text">Immunology Course</span>
         </a>
-        <a href="./part-4.html">
+        <!-- Dropdown for Immunology Course links -->
+        <select onchange="window.location.href=this.value" style="margin-top: 10px; padding: 5px; border-radius: var(--radius); background-color: var(--sidebar-bg); color: var(--sidebar-text);">
+          <option value="" disabled selected>Select Immunology Topic</option>
+          <option value="./part-21.html">Topic 1</option>
+          <option value="./part-24.html">Topic 2</option>
+          <option value="./part-25.html">Topic 3</option>
+        </select>
+        <a href="./part-22.html">
           <span class="nav-ico">📄</span>
-          <span class="nav-text">Experiment Report</span>
+          <span class="nav-text">ABX Pentra XL80 User Guide</span>
+        </a>
+        <a href="./part-23.html">
+          <span class="nav-ico">👤</span>
+          <span class="nav-text">Histology Course</span>
         </a>
       </nav>
     </aside>
-
     <!-- RIGHT CONTENT -->
     <div class="content">
       <main>
-        <h1>Activity</h1>
-        <p style="color:var(--muted)">Department of Biological Sciences</p>
-
+        <h1> Immunology Course</h1>
+        <p style="color:var(--muted)">Detection of IgM antibodies against Treponema Pallidum using ELISA method.</p>
         <section class="content-block">
-          <h2>Project Activity Overview</h2>
+          <h2>Detection of IgM antibodies against Treponema Pallidum using ELISA method</h2>
           <p>
-            This project is dedicated to promoting technological innovation and academic exchange. We have organized numerous activities to foster collaboration and communication among team members, while also strengthening interaction with external experts, scholars, and industry professionals. Below are some of our key activities to date.
-          </p>
-        </section>
-
-        <section class="content-block">
-          <h2>Visit from Nankai University to NTNU Trondheim (Aug 11-15, 2025)</h2>
-          <p>
-          The visit from Nankai University to NTNU Trondheim will feature a series of engaging activities aimed at fostering academic exchange and cultural understanding between the institutions. Kicking off on Monday, August 11, participants will enjoy a guided tour of Trondheim, including visits to the Nidaros Cathedral and the Kristiansten Fort, before exploring the city's vibrant student life. Tuesday, August 12, will focus on an introduction to NTNU's Biomedical Laboratory Science department, followed by a tour of their facilities. On Wednesday, August 13, Nankai University professors and NTNU researchers will present their latest research in a seminar. Later in the week, the group will delve into Norway’s healthcare system and medical studies at NTNU, including a hiking trip to Elgsethytta on Thursday. The week will culminate in discussions on modern biotechnology and ethics, along with a BBQ on Friday, August 15. The program offers opportunities for academic growth, networking, and experiencing Norwegian culture.
-          <div class="image-block">
-            <img src="image/1.jpg" alt="Fixation step image" >
-          </div>
-        </section>
-
-        <section class="content-block">
-          <h2>Visit Schedule for NTNU</h2>
-          <p>
-           This visit will take place in Tianjin, China, and involves multiple academic and cultural activities. It begins with a warm welcome reception on March 26, 2024, where the Nankai University leaders will meet the visitors. The first full day includes lectures on intangible cultural heritage and cross-cultural perspectives on family roles. Students will also participate in sports and cultural events. The following days are filled with educational lectures on medical genetics, immunology, and cell biology, followed by practical experiments in medical molecular genetics. There will be campus visits and opportunities to engage in student activities, culminating in a tour of Beijing. The schedule blends rigorous academic content with cultural exploration.
+            The purpose of this study is using a commercial ELISA kit to analysis IgM antibodies against Treponema Pallidum in serum or plasma.
           </p>
           <div class="image-block">
-            <img src="image/bilde.jpeg" alt="Macroscopic assessment image">
+            <img src="image/ immunology/5.png" alt="Fixation step image" >
           </div>
         </section>
+
         <section class="content-block">
-          <h2>Tentative Program in Ålesund (August 18-22, 2024)</h2>
+          <h2>Treponema pallidum and Syphilis</h2>
           <p>
-           This program in Ålesund is designed to introduce Nankai University students to NTNU's academic environment and the Norwegian healthcare system. It begins with a tour of the Ålesund campus, where participants will explore various departments and laboratory facilities. The program includes practical training days in laboratories, focusing on phlebotomy, hemostasis, and laboratory theory, combined with digital lab training. Students will also have opportunities to engage in seminars and student activities, where they will share insights from their lab work. Cultural experiences, such as a visit to the Sunnmøre Museum and a city walk, will enhance the program, offering a well-rounded experience of Norwegian education and culture.
+            Syphilis (lues) occurs only in humans. Treponema pallidum subsp. pallidum is the causative agent of syphilis. Infection occurs by direct contact with infected lesions via microtraumas of the skin or mucous membrane. The disease progresses through three stages. After 5 - 90 days (average 21 days), a lesion appears at the site of infection (primary stage, hard chancre, lues I). The secondary stage (lues II) develops 3 - 6 weeks later. The tertiary stage (lues III) is marked by manifestations of the skin, mucous membranes, and various organs and affects about one third of the untreated syphilis patients. There are long latent periods between the stages. Infected people are contagious during the first 2 stages. 
+
+During treponemal infection, Immunoglobulin M (IgM) class antibodies are usually the first to be produced and Immunoglobulin G (IgG) class antibodies increases with the duration of this disease. Serologic assays for syphilis diagnosis fall into two categories: non-treponemal and treponemal. Treponemal tests are qualitative assays performed on serum to detect antibodies (usually IgG but occasionally IgM) against a variety of T. pallidum antigens; these antibodies are detectable 2 to 4 weeks after exposure. Nontreponemal tests are performed on serially diluted serum to detect total antibodies (IgM and IgG) directed against lipoidal antigens, such as cardiolipin and lecithin, which are released from damaged host cells and the bacteria. 
+          </p>
           <div class="image-block">
-            <img src="image/bilde.jpeg" alt="Macroscopic assessment image">
+            <img src="image/ immunology/6.jpg" alt="Fixation step image" >
           </div>
         </section>
+
+        <section class="content-block">
+          <h2>Methods for diagnosing Syphilis</h2>
+          <p>
+Results of treponemal tests are typically reported as reactive or nonreactive without any titers. Treponemal tests are, in general, more sensitive in early infection, and once positive, they usually remain reactive indefinitely. They cannot be used to monitor treatment response or diagnose reinfection due to poor correlation with disease activity. They also cannot distinguish syphilis from infections with endemic Treponema, such as yaws (T. pallidum subsp. pertenue) and pinta (T. carateum) due to treponemal species cross-reaction (Satyaputra et al., 2021). Examples of treponemal tests include the fluorescent antibody absorption (FTA-ABS), T. pallidum particle agglutination (TPPA), T. pallidum hemagglutination (TPHA), microhemagglutination assay for T. pallidum (MHA-TP) and enzyme immunoassay (EIA) methods. 
+
+As opposed to treponemal tests, nontreponemal tests are quantitative and reported in titers. Examples of nontreponemal tests include the Venereal Disease Research Laboratory (VDRL), rapid plasma reagin (RPR), unheated serum reagin (USR), and toluidine red unheated serum test (TRUST) methods (Satyaputra et al., 2021).
+
+An initial workup for syphilis includes either a nontreponemal screening assay followed by a confirmatory treponemal test (traditional sequence), or an automated treponemal test followed by a confirmatory nontreponemal test (reverse sequence). In the reverse sequence, discordant results must be confirmed by another treponemal test.
+          </p>
+          <div class="image-block">
+            <img src="image/ immunology/7.png" alt="Macroscopic assessment image">
+          </div>
+        </section>
+
+      </main>
 
       <footer>
         © <span id="year"></span> My Project – All rights reserved.
@@ -256,7 +292,3 @@
   </script>
 </body>
 </html>
-
-
-
-
