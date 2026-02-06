@@ -1,0 +1,328 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Section 1 · Project Overview</title>
+  <meta name="description" content="Overview, milestones, and responsibilities for the histological kidney tissue project.">
+
+  <style>
+    :root {
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#444444;
+      --border:#dddddd;
+      --accent:#004aad;
+      --radius:14px;
+
+      /* Sidebar tokens (match previous layout) */
+      --sidebar-w: 300px;
+      --sidebar-bg: #1f2328;
+      --sidebar-bg-2: #14171b;
+      --sidebar-text: rgba(255,255,255,0.92);
+      --sidebar-muted: rgba(255,255,255,0.62);
+      --sidebar-active: rgba(255,255,255,0.12);
+      --sidebar-hover: rgba(255,255,255,0.08);
+      --sidebar-divider: rgba(255,255,255,0.10);
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
+    }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* ===== Layout: sidebar + content ===== */
+    .layout{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar{
+      width:var(--sidebar-w);
+      background:linear-gradient(180deg,var(--sidebar-bg),var(--sidebar-bg-2));
+      color:var(--sidebar-text);
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow:auto;
+      border-right:1px solid rgba(0,0,0,0.15);
+    }
+    .sidebar-header{
+      padding:22px 20px 14px;
+      border-bottom:1px solid var(--sidebar-divider);
+    }
+    .sidebar-title{
+      font-size:22px;
+      font-weight:750;
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .sidebar-subtitle{
+      margin:6px 0 0 0;
+      color:var(--sidebar-muted);
+      font-size:13px;
+    }
+
+    .side-nav{padding:10px 0;}
+    .side-nav a{
+      display:flex;
+      align-items:center;
+      gap:12px;
+
+      padding:14px 18px;
+      color:var(--sidebar-muted);
+      text-decoration:none;
+
+      border-top:1px solid rgba(255,255,255,0.03);
+      border-bottom:1px solid rgba(0,0,0,0.12);
+      transition:background .15s,color .15s;
+    }
+    .side-nav a:hover{
+      background:var(--sidebar-hover);
+      color:var(--sidebar-text);
+      text-decoration:none;
+    }
+    .side-nav a.active{
+      background:var(--sidebar-active);
+      color:var(--sidebar-text);
+    }
+    .nav-ico{
+      width:26px;height:26px;
+      display:inline-grid;place-items:center;
+      border-radius:8px;
+      color:var(--sidebar-muted);
+      flex:0 0 26px;
+      font-size:16px;
+    }
+    .side-nav a.active .nav-ico{
+      color:#ff6b8a;
+    }
+    .nav-text{
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+
+    /* ===== Content ===== */
+    .content{
+      flex:1;
+      background:var(--bg);
+    }
+    main{max-width:1100px;margin:0 auto;padding:30px 16px 60px;}
+    h1{font-size:28px;margin-top:0;color:var(--accent);}
+    h2{margin-top:28px;font-size:22px;color:var(--accent);}
+    p{margin:10px 0;}
+
+    section.content-block{
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:24px 20px;
+      margin-top:22px;
+    }
+
+    .image-block{
+      text-align:center;
+      margin-top:14px;
+    }
+    .image-block img{
+      max-width:100%;
+      height:auto;
+      border-radius:var(--radius);
+      box-shadow:0 4px 14px rgba(0,0,0,0.1);
+    }
+
+    /* keep your rotation helpers */
+    .rotate-90{
+      transform:rotate(270deg);
+      transform-origin:center;
+    }
+    .rotate--90{
+      transform:rotate(-90deg);
+      transform-origin:center;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      text-align:center;
+      padding:18px 0;
+      font-size:14px;
+      margin-top:40px;
+    }
+
+    /* ===== Responsive: collapse sidebar to top ===== */
+    @media (max-width: 900px){
+      .layout{flex-direction:column;}
+      .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+      }
+      .side-nav{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+      }
+      .side-nav a{
+        border:none;
+        border-top:1px solid var(--sidebar-divider);
+      }
+    }
+/* Button styles for navigation */
+    .button-group {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .button-group a {
+      padding: 12px 20px;
+      background-color: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      display: inline-block;
+    }
+
+    .button-group a:hover {
+      background-color: #002b6d;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="sidebar-title">📁 My Project</h1>
+        <p class="sidebar-subtitle">Histology workflow · Nephrocalcinosis</p>
+      </div>
+
+      <nav class="side-nav">
+        <a href="./index.html">
+          <span class="nav-ico">↩️</span>
+          <span class="nav-text">Back to Index</span>
+        </a>
+        <a href="./part-2.html">
+          <span class="nav-ico">🏠</span>
+          <span class="nav-text">Digital Twin</span>
+        </a>
+        <a href="./part-21.html" class="active">
+          <span class="nav-ico">🩸</span>
+          <span class="nav-text">Immunology Course</span>
+        </a>
+        <a href="./part-22.html">
+          <span class="nav-ico">📄</span>
+          <span class="nav-text">ABX Pentra XL80 User Guide</span>
+        </a>
+        <a href="./part-23.html">
+          <span class="nav-ico">👤</span>
+          <span class="nav-text">Histology Course</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <div class="content">
+      <main>
+
+
+
+
+
+
+
+        <h1> Immunology Course</h1>
+        <p style="color:var(--muted)">PTTs: Ensuring Blood Compatibility for Optimal Patient Benefit.</p>
+
+        <div class="button-group">
+          <a href="#elisa-method">Detection of IgM antibodies against</a>
+          <a href="#pbmcs-isolation">Peripheral Blood Mononuclear Cells</a>
+          <a href="#cleia-analysis">CLEIA- analysis </a>
+        </div>
+
+        <section class="content-block">
+          <h2>Hemagglutination</h2>
+          <p>
+            The purpose of pretransfusion tests is to ensure that the patient receives compatible blood in the event of a transfusion. The blood should be of the best possible benefit to the patient.
+          </p>
+          <div class="image-block">
+            <img src="image/ immunology/3.png" alt="Fixation step image" >
+          </div>
+
+        </section>
+
+        <section class="content-block">
+          <h2>What is blood made up of ?</h2>
+          <p>
+            An adult human has about 4–6 liters of blood circulating in the body. Blood consists of several types of cells floating around in a fluid called plasma. The red blood cells contain hemoglobin, a protein that binds oxygen. Red blood cells transport oxygen to, and remove carbon dioxide from, the body tissues.
+
+The white blood cells fight infection. One type of infection-fighting white blood cells fight disease by producing antibodies and thus destroying foreign materia.
+
+The platelets help the blood to clot, if you get a wound for example.
+
+The plasma contains salts and various kinds of proteins.
+          </p>
+          <div class="image-block">
+            <img src="image/ immunology/2.png" alt="Fixation step image" >
+          </div>
+        </section>
+
+
+        <section class="content-block">
+          <h2>ABO and the Rh blood type</h2>
+          <p>
+            There are many blood group systems known today, but the ABO and the Rh blood groups are the most important ones used for blood transfusions. 
+
+ABO blood group system, the classification of human blood based on the inherited properties of red blood cells (erythrocytes) as determined by the presence or absence of the antigens A and B, which are carried on the surface of the red cells. Persons may thus have type A, type B, type O, or type AB blood
+
+The Rh blood group is classified according to the presence or absence of a second erythrocyte antigen identified as Rh. Although dozens of Rh antigens have been identified, only one, designated D, is clinically important. Those who have the Rh D antigen present on their erythrocytes are described as Rh positive (Rh+) and those who lack it are Rh negative (Rh−). Note that the Rh group is distinct from the ABO group, so any individual, no matter their ABO blood type, may have or lack this Rh antigen. When identifying a patient’s blood type, the Rh group is designated by adding the word positive or negative to the ABO type. For example, A positive (A+) means ABO group A blood with the Rh antigen present, and AB negative (AB−) means ABO group AB blood without the Rh antigen.
+
+People belong to either of eight different blood types:
+A Rh+, A Rh-, B Rh+, B Rh-, AB RH+, AB Rh-, 0 Rh+, or 0 Rh.
+          </p>
+          <div class="image-block">
+            <img src="image/ immunology/4.jpeg" alt="Macroscopic assessment image">
+          </div>
+        </section>
+
+        <section class="content-block">
+          <h2>Hemagglutination</h2>
+          <p>
+            Agglutination is the process of the arms of the Y-shaped antibodies attach randomly to more than one non-self erythrocyte surface, they form clumps of erythrocytes. Hemagglutination is a specific form of agglutination that involves red blood cells (RBCs) as a source of antigen. It can be used to determine type blood cells for transfusion, to identify bacterial cultures, and to detect the presence and relative amount of specific antibody in a patient’s serum.
+            </p>
+          <div class="image-block">
+            <img src="image/ immunology/1.png" alt="Feeding process image">
+          <p>
+            To determine blood type, you need to find out which antigens are present. You can work that out by mixing the patient’s blood with three different reagents containing either of the three antibodies: A, B or Rh. Then you take a look at in which mixtures has agglutination occurred? The agglutination indicates that the blood has reacted with a certain antibody and is therefore not compatible with blood containing that kind of antibody. If the blood does not agglutinate, it indicates that the blood does not have the antigens binding the special antibody in the reagent.
+
+The blood will agglutinate if the antigens in the patient's blood match the antibodies in the test tube. A antibodies attach to A antigens - they match like a lock and key - and thus form a clump of red blood cells. In the same way B antibodies attach to B antigens and Rh antibodies to Rh antigens. In the test tubes where agglutination has occurred, the patient's red blood cells have been linked together, like bunches of grapes, instead of floating around one by one .
+           </p> 
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        © <span id="year"></span> My Project – All rights reserved.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
