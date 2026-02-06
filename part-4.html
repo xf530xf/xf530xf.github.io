@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PDF Viewer · Docs</title>
-  <meta name="description" content="Preview PDFs stored in ./docs/ using the browser's built-in PDF viewer.">
+  <meta name="description" content="Preview PDFs.">
 
   <style>
     :root{
@@ -189,13 +189,13 @@
       <main>
         <h1>Experiment Report</h1>
         <p style="color:var(--muted)">
-          This page uses the browser’s built-in PDF viewer via <code>&lt;iframe&gt;</code>. It is typically the most reliable approach on GitHub Pages.
+          This page uses the browser’s built-in PDF viewer. It is typically the most reliable approach on GitHub Pages.
         </p>
 
         <section class="content-block">
           <h2>Documents</h2>
           <p style="color:var(--muted)">
-            Select a PDF under <code>./docs/</code>. You can also open it in a new tab or download it directly.
+            This page showcases exchange reports submitted by visiting students during the project, aiming to share their research, observations, and analyses conducted throughout the project. These reports not only demonstrate students' deep understanding and reflection on the project topics but also showcase their active participation in academic exchange and teamwork. Through these submitted reports, the project team can obtain feedback and suggestions from different perspectives, providing valuable references and support for the project's development.
           </p>
 
           <div class="docbar">
@@ -222,15 +222,14 @@
             <iframe id="pdfFrame" title="PDF preview"></iframe>
           </div>
 
-          <p style="margin-top:10px;color:var(--muted);font-size:14px">
+          <!-- <p style="margin-top:10px;color:var(--muted);font-size:14px">
             Notes:
             <br>1) Put PDFs under <strong>./docs/</strong>.
             <br>2) GitHub Pages is case-sensitive (e.g., <code>YANZHA.PDF</code> ≠ <code>yanzha.pdf</code>).
             <br>3) If a PDF still does not render, try clicking <strong>Open</strong> to verify the direct URL works.
-          </p>
+          </p> -->
         </section>
       </main>
-
       <footer>
         © <span id="year"></span> My Project – All rights reserved.
       </footer>
