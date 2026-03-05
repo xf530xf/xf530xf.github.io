@@ -84,7 +84,7 @@ class MultiScalePatchEmbed(nn.Module):
         self.d_model = d_model
 
         self.patch_embeds = nn.ModuleList()
-        self.pos_embeds = nn.ModuleList()
+        self.pos_embeds = nn.ParameterList()
         self.n_patches_list = []
 
         for i, (ps, st) in enumerate(zip(patch_sizes, strides)):
