@@ -156,7 +156,8 @@ class AssociationDiscrepancy(nn.Module):
         discrepancy = F.kl_div(
             series_assoc.log(),
             prior_assoc,
-            reduction='none'
+            reduction='none',
+            log_target=False,
         ).sum(dim=-1)
 
         return discrepancy

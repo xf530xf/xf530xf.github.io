@@ -39,7 +39,8 @@ class PatchReprogramming(nn.Module):
         self.source_prototypes = nn.Parameter(
             torch.randn(n_prototypes, d_llm)
         )
-        nn.init.xavier_uniform_(self.source_prototypes.unsqueeze(0))
+        nn.init.xavier_uniform_(self.source_prototypes.unsqueeze(0).data)
+        self.source_prototypes.data = self.source_prototypes.data
 
         self.W_Q = nn.Linear(d_model, d_llm)
         self.W_K = nn.Linear(d_llm, d_llm)

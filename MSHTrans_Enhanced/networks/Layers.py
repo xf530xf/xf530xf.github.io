@@ -4,7 +4,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.modules.linear import Linear
 from networks.fft import FourierLayer, series_decomp_multi
-import torch.nn.functional as F
 
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model, dropout=0.1, max_len=5000):
