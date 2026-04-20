@@ -137,6 +137,49 @@
       box-shadow:0 4px 14px rgba(0,0,0,0.1);
     }
 
+    /* Two-column rows (match index.html gallery) */
+    .image-row{
+      display:flex;
+      gap:16px;
+      align-items:stretch;
+      margin-top:14px;
+    }
+    .image-row + .image-row{
+      margin-top:16px;
+    }
+    .image-row .image-block{
+      flex:1;
+      margin-top:0;
+      aspect-ratio:16 / 9;
+      overflow:hidden;
+      border-radius:var(--radius);
+      box-shadow:0 4px 14px rgba(0,0,0,0.1);
+    }
+    .image-row .image-block img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      border-radius:inherit;
+      box-shadow:none;
+    }
+    .image-row--single{
+      justify-content:center;
+    }
+    .image-row--single .image-block{
+      flex:0 1 calc(50% - 8px);
+      max-width:calc(50% - 8px);
+    }
+    @media (max-width:700px){
+      .image-row{
+        flex-direction:column;
+      }
+      .image-row--single .image-block{
+        flex:1;
+        max-width:none;
+      }
+    }
+
     /* keep your rotation helpers */
     .rotate-90{
       transform:rotate(270deg);
@@ -242,6 +285,39 @@
           </div>
           <div class="image-block">
             <img src="image/10.png" alt="Macroscopic assessment image">
+          </div>
+          <h2>Visiting Simulation Lab</h2>
+          <div class="image-row">
+            <div class="image-block">
+              <img src="photo/43.jpg" alt="Visiting simulation lab at Nankai University">
+            </div>
+            <div class="image-block">
+              <img src="photo/36.png" alt="Visiting simulation lab at Nankai University">
+            </div>
+          </div>
+          <div class="image-row">
+            <div class="image-block">
+              <img src="photo/37.jpeg" alt="Visiting simulation lab at Nankai University">
+            </div>
+            <div class="image-block">
+              <img src="photo/38.jpeg" alt="Visiting simulation lab at Nankai University">
+            </div>
+          </div>
+          <div class="image-row">
+            <div class="image-block">
+              <img src="photo/39.jpeg" alt="Visiting simulation lab at Nankai University">
+            </div>
+            <div class="image-block">
+              <img src="photo/40.jpeg" alt="Visiting simulation lab at Nankai University">
+            </div>
+          </div>
+          <div class="image-row">
+            <div class="image-block">
+              <img src="photo/41.jpg" alt="Visiting simulation lab at Nankai University">
+            </div>
+            <div class="image-block">
+              <img src="photo/42.jpg" alt="Visiting simulation lab at Nankai University">
+            </div>
           </div>
           <h2>Visiting Nankai University PCR Lab</h2>
            <div class="image-block">

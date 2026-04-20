@@ -137,17 +137,6 @@
     p { margin: 10px 0; color: var(--text); }
     ul { margin: 10px 0 10px 20px; }
 
-    .image-block {
-      text-align: center;
-      margin: 30px 0 10px 0;
-    }
-    .image-block img {
-      max-width: 100%;
-      height: auto;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-    }
-
     /* ===== Footer Contact (NTNU-like) ===== */
     .footer-contact {
       max-width: 1100px;
@@ -196,23 +185,58 @@
       font-size: 14px;
       color: var(--text);
     }
-    .image-row{
+    .image-row {
       display: flex;
-      gap: 16px;           /* 两张图间距 */
+      gap: 16px;
+      align-items: flex-start;
+      margin-top: 24px;
+    }
+    .image-row + .image-row {
+      margin-top: 16px;
       align-items: stretch;
     }
-    
-    .image-block{
+
+    /* Full photo visible (no 16:9 crop); pair stays side-by-side */
+    .image-row .image-block {
       flex: 1;
-      aspect-ratio: 16 / 9;   /* 两张图统一比例，可改 4/3、1/1 等 */
-      overflow: hidden;
-      border-radius: 10px;    /* 可选 */
+      min-width: 0;
+      text-align: center;
+      border-radius: var(--radius);
     }
-    
-    .image-block img{
+    .image-row .image-block img {
       width: 100%;
       height: auto;
       display: block;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+
+    /* Second image row (Nankai photos): same frame size; slightly compress left vertically to match right */
+    .image-row + .image-row .image-block {
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f2f5;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+    .image-row + .image-row .image-block img {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .image-row + .image-row .image-block:first-child img {
+      height: auto;
+      width: auto;
+      max-width: 100%;
+      max-height: 88%;
     }
 
     footer {
@@ -277,6 +301,15 @@
         
           <div class="image-block">
             <img src="image/bilde.jpeg" alt="Another Image">
+          </div>
+        </div>
+
+        <div class="image-row">
+          <div class="image-block">
+            <img src="image/nankai-school-of-medicine-group.png" alt="Students and faculty in front of the School of Medicine building at Nankai University.">
+          </div>
+          <div class="image-block">
+            <img src="image/nankai-ntnu-optometry-exchange.png" alt="Group photo at Nankai University Optometry and Vision Science with NTNU guests, welcome signs for China and Nankai University.">
           </div>
         </div>
 
